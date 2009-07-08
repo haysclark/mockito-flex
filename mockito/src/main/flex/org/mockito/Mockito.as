@@ -34,50 +34,60 @@ package org.mockito
     import org.mockito.impl.matchers.Matchers;
 
     /**
-     * Main mocking entry point
-     *
+     * <h3>Main mocking entry point</h3>
+     * <p>
      * You should start mocking by calling the prepareClasses(...) and providing all the classes to mock in given test case.
      * Since the bytecode generation is an asynchronous process it is recommended to use one of the integration test cases as they address
      * this issue.
-     *
+     * </p>
+     * <p>
      * After preparing classes you can create mock objects by invoking:
-     *
-     * <code>
+     * </p>
+     * <p>
+     * <listing>
      * var dependency:Dependency = Dependency(mock(Dependency));
-     * </code>
-     *
+     * </listing>
+     * </p>
+     * <p>
      * Then setup the System Under Test (SUT)
-     *
-     * <code>
+     * </p>
+     * <p>
+     * <listing>
      * var sut:Sut = new Sut();
      * sut.dependency = dependency;
-     * </code>
-     *
+     * </listing>
+     * </p>
+     * <p>
      * And execute tested code.
-     *
-     * <code>
+     * </p>
+     * <p>
+     * <listing>
      * sut.testedFunction(10);
-     * </code>
-     *
+     * </listing>
+     * </p>
+     * <p>
      * Given the testedFunction looks like this:
-     *
-     * <code>
+     * </p>
+     * <p>
+     * <listing>
      * function testedFunction(input:int):void
      * {
      *      dependencyResult = dependency.someOperation(input);
      * }
-     * </code>
-     *
+     * </listing>
+     * </p>
      * notice that there is no 'unexpected call' exception.
-     *
+     * <p>
      * Instead you are free to choose what you want to verify:
-     *
-     * <code>
+     * </p>
+     * <p>
+     * <listing>
      * verify().that(dependency.someOperation(input));
-     * </code>
-     *
+     * </listing>
+     * </p>
      * The full test would look like this:
-     * <code>
+     * <p>
+     * <listing>
      * // given
      * var sut:Sut = new Sut();
      * sut.dependency = dependency;
@@ -85,19 +95,23 @@ package org.mockito
      * sut.testedFunction(10);
      * // then
      * verify().that(dependency.someOperation(10));
-     * </code>
-     *
+     * </listing>
+     * </p>
      * As you can see, verification happens where assertions go. Not before the tested code.
-     *
+     * <br />
      * Important note is that verify() is equivalent to verify(times(1)).
      *
+     * <p>
      * If you need to stub dependency, you define it upfront.
-     * <code>
+     * </p>
+     * <p>
+     * <listing>
      * given(dependency.someOperation(10)).willReturn(1);
-     * </code>
-     *
+     * </listing>
+     * </p>
      * When used in test it would look like this:
-     * <code>
+     * <p>
+     * <listing>
      * // given
      * var sut:Sut = new Sut();
      * sut.dependency = dependency;
@@ -106,48 +120,52 @@ package org.mockito
      * sut.testedFunction(10);
      * // then
      * assertEquals(1, sut.dependencyResult);
-     * </code>
-     *
+     * </listing>
+     * </p>
      * It may be useful to verify or define stubbing with various arguments at a time or have ability of matching the specific cases.
      * For that purpose Mockito provides Matchers.
-     *
+     * <br />
      * Below example verifies any arguments passed to the function:
-     * <code>
+     * <p>
+     * <listing>
      * verify().that(dependency.someOperation(any()));
-     * </code>
-     *
+     * </listing>
+     * </p>
      * Similar you can do with stubbing:
-     *
-     * <code>
+     * <p>
+     * <listing>
      * given(dependency.someOperation(any())).willReturn(1);
-     * </code>
-     *
+     * </listing>
+     * </p>
      * As you can see you can either use explicit values or matchers when defining stubs or verifying. But you cannot mix it within single stub definition or verification.
      * So for instance:
-     * <code>
+     * <p>
+     * <listing>
      * verify().that(progress.update(10, any()))
-     * </code>
-     *
+     * </listing>
+     * </p>
      * is invalid. Mockito will not be able to figure out which argument type to match against the any() matcher.
      *
      * You may want to verify multiple executions of a method at time. It's easy. Just tell how to verify:
-     *
-     * <code>
+     * <p>
+     * <listing>
      * verify(times(3)).that(dependency.someOperation(any()));
-     * </code>
-     *
+     * </listing>
+     * </p>
      * Sometimes you may want to make sure method has not been called. Do it by verifying:
-     *
-     * <code>
+     * <p>
+     * <listing>
      * verify(never()).that(dependency.someOperation(any()));
-     * </code>
-     *
+     * </listing>
+     * </p>
      * If you miss a verifier you can write it on your own by implementing Verifier interface.
-     *
+     * <br />
+     * <p>
      * If you need to perform a matching that is not provided by the Mockito, you can write your custom Matcher.
      * You start off with implementing the Matcher interface:
-     *
-     * <code>
+     * </p>
+     * <p>
+     * <listing>
      * public class HashOnlyCapitalLettersMatcher implements Matcher
      * {
      *      public function matches(value:*):Boolean
@@ -157,26 +175,29 @@ package org.mockito
      *          return hasOnlyCapitalLetters;
      *      }
      * }
-     * </code>
-     *
+     * </listing>
+     * </p>
      *
      * Then you need to record a matcher use by calling argThat() function that puts aside a matcher
      * for later use:
-     *
-     * <code>
+     * <p>
+     * <listing>
      * verify().that(system.login(argThat(new HashOnlyCapitalLettersMatcher())));
-     * </code>
-     *
+     * </listing>
+     * </p>
+     * <p>
      * A good practice is to create a matcher recording function somewhere and name it
      * after the matcher. It's important to return a wildcard from the function to let it
      * work with any arugment of the function
-     * <code>
+     * </p>
+     * <p>
+     * <listing>
      * function hasOnlyCapitalLetters():*
      * {
      *     argThat(new HashOnlyCapitalLettersMatcher());
      * }
-     * </code>
-     *
+     * </listing>
+     * </p>
      */
     public class Mockito implements MethodSelector, MockCreator
     {
@@ -198,7 +219,7 @@ package org.mockito
         }
 
         /**
-         * @inherited
+         * @inheritedDoc
          */
         public function prepareClasses(classes:Array, calledWhenClassesReady:Function):void
         {
@@ -254,11 +275,11 @@ package org.mockito
         }
 
         /**
-         * Equality matcher
-         * Example:
-         * <code>
+         * Equality matcher<br />
+         * Example:<br /><br />
+         * <listing>
          * verify(never()).that(system.login(eq("root")));
-         * </code>
+         * </listing>
          */
         public function eq(expected:Object):*
         {
@@ -266,21 +287,21 @@ package org.mockito
         }
 
         /**
-         * A fluent interface for custom matcher
-         * Example:
-         * <code>
+         * A fluent interface for custom matcher<br />
+         * Example:<br /><br />
+         * <listing>
          * verify().that(system.login(argThat(new HashOnlyCapitalLettersMatcher())));
-         * </code>
-         *
+         * </listing>
+         * <br /><br />
          * A good practice is to create a matcher recording function somewhere and name it
          * after the matcher. It's important to return a wildcard from the function to let it
-         * work with any arugment of the function
-         * <code>
+         * work with any arugment of the function<br /><br />
+         * <listing>
          * function hasOnlyCapitalLetters():*
          * {
          *     argThat(new HashOnlyCapitalLettersMatcher());
          * }
-         * </code>
+         * </listing>
          */
         public function argThat(matcher:Matcher):void
         {
@@ -288,11 +309,11 @@ package org.mockito
         }
 
         /**
-         * A fluent interface for counting calls
-         * Example:
-         * <code>
+         * A fluent interface for counting calls<br />
+         * Example:<br /><br />
+         * <listing>
          * verify(times(2)).that(operator.execute());
-         * </code>
+         * </listing>
          */
         public function times(expectedCallsCount:int):Verifier
         {
@@ -300,11 +321,11 @@ package org.mockito
         }
 
         /**
-         * A fluent interface for making sure call hasn't happened
-         * Example:
-         * <code>
+         * A fluent interface for making sure call hasn't happened<br />
+         * Example:<br /><br />
+         * <listing>
          * verify(never()).that(operator.execute());
-         * </code>
+         * </listing>
          */
         public function never():Verifier
         {
