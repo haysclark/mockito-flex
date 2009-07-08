@@ -24,6 +24,9 @@ package org.mockito.impl
     import org.mockito.api.Invocation;
     import org.mockito.api.Invocations;
 
+    /**
+     * Default implementation of the Invocations.
+     */
     public class InvocationsImpl implements Invocations
     {
         private var invocations:ArrayCollection;
@@ -31,21 +34,30 @@ package org.mockito.impl
         public function InvocationsImpl()
         {
             invocations = new ArrayCollection();
-            invocations.filterFunction = filterOutStubbed;
-            invocations.refresh();
         }
 
+        /**
+         * @inherited
+         */
         public function addInvocation(iv:Invocation):void
         {
             invocations.addItem(iv);
         }
         
-        public function getInvocations():ArrayCollection
+        /**
+         * @inherited
+         */
+        public function getEncounteredInvocations():ArrayCollection
         {
-            invocations.refresh();
-            return invocations;
+            var noStubbed:ArrayCollection = new ArrayCollection(invocations.source);
+            noStubbed.filterFunction = filterOutStubbed;
+            noStubbed.refresh();
+            return noStubbed;
         }
         
+        /**
+         * @inherited
+         */
         public function answerFor(actualInvocation:Invocation):*
         {
             for each (var invocation:Invocation in invocations.source)
@@ -57,7 +69,7 @@ package org.mockito.impl
             }
             return null;
         }
-        
+
         private function filterOutStubbed(item:Invocation):Boolean 
         {
             return !item.isStubbed();

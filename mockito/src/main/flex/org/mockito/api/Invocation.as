@@ -19,27 +19,72 @@
  */
 package org.mockito.api
 {
+    /**
+     * An interface for invocation of the mocked method
+     */
     public interface Invocation
     {
+        /**
+         * Specifies if the invocations has been already verified or not
+         */
         function get verified():Boolean;
+        
+        /**
+         * @private
+         */
         function set verified(b:Boolean):void;
         
+        /**
+         * An array with the function arguments
+         */
         function get args():Array;
         
+        /**
+         * Execution target or <code>this</code>
+         */
         function get target():Object;
         
+        /**
+         * Executed function name
+         */
         function get methodName():String;
         
+        /**
+         * Provides a function description
+         * @return function description
+         */
         function describe():String;
         
+        /**
+         * Verifies if the invocation matches with the specified argument
+         * @param other an invocation to test
+         * @return true if the two invocations matche
+         */
         function matches(other:Invocation):Boolean;
         
+        /**
+         * Records an answer for given invocation
+         * @param answer an answer to record 
+         */ 
         function addAnswer(answer:Answer):void;
         
+        /**
+         * Provides an answer 
+         * @return return value or <code>null</code>
+         */
         function answer():*;
         
+        /**
+         * Records matchers used in place of the arguments
+         * @param matchers an array with matchers
+         * @see org.mockito.api.Matcher
+         */
         function useMatchers(matchers:Array):void;
         
+        /**
+         * Informs about mode of the invocation
+         * @return <code>true</code> if used to describe a stubbed invocation
+         */
         function isStubbed():Boolean;
     }
 }

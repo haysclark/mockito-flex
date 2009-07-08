@@ -20,8 +20,8 @@ package org.mockito.impl
             invocations.addInvocation(stubbed);
             invocations.addInvocation(regular);
             // then
-            assertEquals(1, invocations.getInvocations().length);
-            assertEquals(regular, invocations.getInvocations().getItemAt(0));
+            assertEquals(1, invocations.getEncounteredInvocations().length);
+            assertEquals(regular, invocations.getEncounteredInvocations().getItemAt(0));
         }
     }
 }

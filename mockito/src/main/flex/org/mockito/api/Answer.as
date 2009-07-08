@@ -19,8 +19,15 @@
  */
 package org.mockito.api
 {
+    /**
+     * An interface for the stubber answers
+     */
     public interface Answer
     {
+        /**
+         * Gives an answer. May return a value or execute any specific action.
+         * @return a value or null
+         */
         function give():*;
     }
 }

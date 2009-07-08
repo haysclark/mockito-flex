@@ -20,7 +20,7 @@ package org.mockito.impl
         
         override public function setUp():void
         {
-            repo = new AsmockMockery();
+            repo = new AsmockMockery(null);
             invocation = new MockAsmockInvocation();
             target = new Object();
         }

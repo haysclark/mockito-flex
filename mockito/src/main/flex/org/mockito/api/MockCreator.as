@@ -21,10 +21,25 @@ package org.mockito.api
 {
     import flash.events.IEventDispatcher;
     
+    /**
+     * An interface for entities capable of generating mock objects
+     */
     public interface MockCreator
     {
-        function mock(clazz:Class, name:String=null, constructorArgs:Array=null):Object;
+        /**
+         * Constructs mock object
+         * @param clazz a class of the mock object
+         * @param name a name used in various output
+         * @param constructorArgs constructor arguments required to create mock instance
+         * @return a mocked object
+         */
+        function mock(clazz:Class, name:String=null, constructorArgs:Array=null):*;
         
-        function prepare(classes:Array):IEventDispatcher;
+        /**
+         * Prepares given classes for mocking
+         * @param classes an array of Class instances that should be prepared for mocking
+         * @param calledWhenClassesReady an arugumentless function invoked when (async or not) process of classes generation is over
+         */
+        function prepareClasses(classes:Array, calledWhenClassesReady:Function):void;
     }
 }

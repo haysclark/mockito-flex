@@ -19,8 +19,15 @@
  */
 package org.mockito.api
 {
+    /**
+     * An interface for verification method selector
+     */
     public interface MethodSelector
     {
+        /**
+         * This method it part of the fluent interface
+         * It's a placeholder for the actual method call for verification
+         */
         function that(methodCallToVerify:*):void
     }
 }

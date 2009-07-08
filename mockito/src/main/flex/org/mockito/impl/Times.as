@@ -42,7 +42,7 @@ package org.mockito.impl
         {
             var counter:int = 0;
 
-            for each (var iv:Invocation in invocations.getInvocations())
+            for each (var iv:Invocation in invocations.getEncounteredInvocations())
             {
                 if (wanted.matches(iv))
                 {

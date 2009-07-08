@@ -23,29 +23,51 @@ package org.mockito.impl
     import asmock.framework.proxy.*;
     import asmock.reflection.*;
     
+    import flash.events.Event;
+    import flash.events.IEventDispatcher;
     import flash.utils.Dictionary;
     
     import org.mockito.api.Invocation;
     import org.mockito.api.MockCreator;
     import org.mockito.api.MockInterceptor;
-    import org.mockito.api.MockeryProvider;
     
+    /**
+     * Asmock bridge. Utilizes asmock facilities to create mock objects. 
+     */
     public class AsmockMockery extends MockRepository implements MockCreator 
     {
+        
         public var interceptor:MockInterceptor;
         
-        private var _names:Dictionary = new Dictionary();
+        protected var _names:Dictionary = new Dictionary();
 
-        public function AsmockMockery()
+        public function AsmockMockery(interceptor:MockInterceptor)
         {
+            this.interceptor = interceptor;
         }
 
+        /**
+         * A factory method that creates Invocation out of asmock invocation
+         * @param invocation asmock invocation object
+         * @return mockito invocation
+         * 
+         */
         public static function createFrom(invocation:IInvocation):Invocation
         {
             return new InvocationImpl(invocation.invocationTarget, invocation.method.name, invocation.arguments);
         }
 
-        public function mock(clazz:Class, name:String=null, constructorArgs:Array=null):Object
+        public function prepareClasses(classes:Array, calledWhenClassesReady:Function):void
+        {
+            var dispatcher:IEventDispatcher = super.prepare(classes);
+            var repositoryPreparedHandler:Function = function (e:Event):void
+            {
+                calledWhenClassesReady();
+            };
+            dispatcher.addEventListener(Event.COMPLETE, repositoryPreparedHandler);
+        }
+
+        public function mock(clazz:Class, name:String=null, constructorArgs:Array=null):*
         {
             if (name == null)
                 name = Type.getType(clazz).name;
@@ -59,6 +81,11 @@ package org.mockito.impl
             return interceptor.methodCalled(createFrom(invocation));
         }
 
+        /**
+         * 
+         * @param mock
+         * @param name
+         */
         public function registerAlias(mock:Object, name:String):void
         {
             _names[mock] = name;
