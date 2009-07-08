@@ -27,13 +27,20 @@ package org.mockito
     import org.mockito.api.MockCreator;
     import org.mockito.api.Stubber;
     import org.mockito.api.Verifier;
-
+    
+    /**
+     * Integration test case for the flexunit.
+     */
     public class MockitoTestCase extends TestCase
     {
         private var _mockClasses:Array;
 
         protected var mockito:Mockito
-
+        
+        /**
+         * Pass classes to mock to the constructor
+         * @param mockClasses array of classes to mock
+         */
         public function MockitoTestCase(mockClasses:Array)
         {
             _mockClasses = mockClasses;
@@ -112,9 +119,9 @@ package org.mockito
         /**
          * Equality matcher
          * Example:
-         * <code>
+         * <listing>
          * verify(never()).that(system.login(eq("root")));
-         * </code>
+         * </listing>
          */
         public function eq(expected:*):*
         {
@@ -124,9 +131,9 @@ package org.mockito
         /**
          * A fluent interface for making sure call hasn't happened
          * Example:
-         * <code>
+         * <listing>
          * verify(never()).that(operator.execute());
-         * </code>
+         * </listing>
          */
         public function never():Verifier
         {
@@ -136,9 +143,9 @@ package org.mockito
         /**
          * A fluent interface for counting calls
          * Example:
-         * <code>
+         * <listing>
          * verify(times(2)).that(operator.execute());
-         * </code>
+         * </listing>
          */
         public function times(expectedCallsCount:int):Verifier
         {
@@ -148,19 +155,19 @@ package org.mockito
         /**
          * A fluent interface for custom matcher
          * Example:
-         * <code>
+         * <listing>
          * verify().that(system.login(argThat(new HashOnlyCapitalLettersMatcher())));
-         * </code>
+         * </listing>
          *
          * A good practice is to create a matcher recording function somewhere and name it
          * after the matcher. It's important to return a wildcard from the function to let it
          * work with any arugment of the function
-         * <code>
+         * <listing>
          * function hasOnlyCapitalLetters():*
          * {
          *     argThat(new HashOnlyCapitalLettersMatcher());
          * }
-         * </code>
+         * </listing>
          */
         public function argThat(matcher:Matcher):*
         {
