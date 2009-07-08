@@ -21,12 +21,28 @@ package org.mockito.api
 {
     import mx.collections.ArrayCollection;
     
+    /**
+     * An interface for invocations collection
+     */
     public interface Invocations
     {
+        /**
+         * Records an invocation
+         * @param iv an invcation
+         */
         function addInvocation(iv:Invocation):void;
         
-        function getInvocations():ArrayCollection;
+        /**
+         * Returns a collection of the mock invocations encountered during the test execution
+         * @return list of non stubbed invocations
+         */
+        function getEncounteredInvocations():ArrayCollection;
         
+        /**
+         * Calls answer that matches invocation 
+         * @param iv invocation 
+         * @return a return value or <code>null</code>
+         */
         function answerFor(iv:Invocation):*;
         
     }

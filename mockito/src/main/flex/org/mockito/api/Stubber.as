@@ -19,10 +19,28 @@
  */
 package org.mockito.api
 {
+    /**
+     * An interface for parties responsible for providing stubbing behavior
+     */
     public interface Stubber
     {
+        /**
+         * Defines a return value for function call
+         * @param value a value to return
+         */
         function willReturn(value:*):void;
+        
+        /**
+         * Defines an error to throw for function call
+         * @param error an error to throw
+         */
         function willThrow(errorToThrow:Error):void;
-        function will(answer:Answer):void;        
+        
+        /**
+         * Defines a custom action to be taken for function call
+         * @param answer an Answer to be provided
+         * @see org.mockito.api.Answer
+         */
+        function will(answer:Answer):void;
     }
 }

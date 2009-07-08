@@ -98,7 +98,7 @@ package org.mockito.impl
 
         public function getInvocations(mock:Object):ArrayCollection
         {
-            return getInvocationFor(mock).getInvocations();
+            return getInvocationFor(mock).getEncounteredInvocations();
         }
 
         public function set verifier(value:Verifier):void

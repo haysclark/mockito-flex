@@ -23,26 +23,42 @@ package org.mockito.impl
     import org.mockito.api.MockInterceptor;
     import org.mockito.api.MockeryProvider;
 
+    /**
+     * 
+     * Implementation of the mockery provider that creates asmock based implementation
+     */
     public class AsmockMockeryProvider implements MockeryProvider
     {
-        private var mockInterceptor:MockInterceptor = new MockInterceptorImpl();
+        private var mockInterceptor:MockInterceptor;
         
-        private var mockCreator:AsmockMockery = new AsmockMockery();
+        private var mockCreator:AsmockMockery;
         
+        /**
+         * Creates mockery provider
+         */
         public function AsmockMockeryProvider()
         {
-            mockCreator.interceptor = mockInterceptor;
+            mockInterceptor = new MockInterceptorImpl();
+            mockCreator = new AsmockMockery(mockInterceptor);
         }
 
+        /**
+         * Returns MockCreator
+         * @return implementation of MockCreator
+         */
         public function getMockCreator():MockCreator
         {
             return mockCreator;
         }
         
+        /**
+         * Returns MockInterceptor
+         * @return implementation of MockInterceptor
+         * 
+         */
         public function getMockInterceptor():MockInterceptor
         {
             return mockInterceptor;
         }
-        
     }
 }

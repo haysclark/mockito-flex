@@ -19,14 +19,38 @@
  */
 package org.mockito.api
 {
+    /**
+     * Interface for intercepting of the mock invocations
+     */
     public interface MockInterceptor
     {
+        /**
+         * Called when a function is invoked on a mock object
+         * @param invocation an invocation related to a call
+         * @return a return value of the function or <code>null</code>
+         * @see org.mockito.api.Invocation
+         */
         function methodCalled(invocation:Invocation):*;
         
+        /**
+         * Sets a verifier for the next method call
+         * @param verifier for the next method call
+         * @see org.mockito.api.Verifier
+         */
         function set verifier(verifier:Verifier):void;
         
+        /**
+         * Informs interceptor to stub the latest invocation
+         * @param answer an answer associated with the latest call
+         * @see org.mockito.api.Answer
+         */
         function stubLatestInvocation(answer:Answer):void;
         
+        /**
+         * Called when a matcher is being used in function arguments
+         * @param matcher a matcher that should be used for matching the argument
+         * @see org.mockito.api.Matcher
+         */
         function addMatcher(matcher:Matcher):void
     }
 }

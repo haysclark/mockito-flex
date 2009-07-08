@@ -19,8 +19,14 @@
  */
 package org.mockito.api
 {
+    /**
+     * An interface for matcher
+     */
     public interface Matcher
     {
+        /**
+         * @return <code>true</code> if the matcher matches the value
+         */
         function matches(value:*):Boolean;
     }
 }

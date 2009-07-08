@@ -21,9 +21,19 @@ package org.mockito.api
 {
     import org.mockito.api.Invocations;
     import org.mockito.api.Invocation;
-    
+   
+    /**
+     * An interface for verification of the invocation
+     */ 
     public interface Verifier
     {
+        /**
+         * Verifies given invocation against the invocations
+         * @param wanted is the current invocation
+         * @param invocations is a container with all encountered invocations
+         * @see org.mockito.api.Invocation
+         * @see org.mockito.api.Invocations 
+         */
         function verify(wanted:Invocation, invocations:Invocations):void;
     }
 }
