@@ -20,7 +20,7 @@
 package org.mockito
 {
     import asmock.reflection.*;
-
+    
     import org.mockito.api.Matcher;
     import org.mockito.api.MethodSelector;
     import org.mockito.api.MockCreator;
@@ -267,13 +267,47 @@ package org.mockito
         }
 
         /**
+         * Matches a NaN Number
+         */
+        public function isItNaN():*
+        {
+            return argThat(Matchers.isNaN());
+        }
+
+        /**
+         * Matches any non-null that is of specified type. Type equality is evaluated with equals operator
+         */
+        public function anyOf(clazz:Class):*
+        {
+            return argThat(Matchers.anyOf(clazz));
+        }
+    
+        /**
+         * Verifies if the argument has a property or a property chain of an expected value
+         * @param propertyChain a property name or an array of property names of the objects chain in an argument
+         * @param expectedPropertyValue expected value, equality is evaluated with '=='
+         */
+        public function havingPropertyOf(propertyChain:Object, expectedPropertyValue:Object):*
+        {
+            return argThat(Matchers.havingPropertyOf(propertyChain, expectedPropertyValue));
+        }
+    
+        /**
+         * matches any non-null argument 
+         */
+        public function notNull():*
+        {
+            return argThat(Matchers.notNull());
+        }
+    
+        /**
          * Matches any argument including <code>null</code>
          */
         public function any():*
         {
-            argThat(Matchers.any());
+            return argThat(Matchers.any());
         }
-
+    
         /**
          * Equality matcher<br />
          * Example:<br /><br />
@@ -283,7 +317,7 @@ package org.mockito
          */
         public function eq(expected:Object):*
         {
-            argThat(Matchers.eq(expected));
+            return argThat(Matchers.eq(expected));
         }
 
         /**
