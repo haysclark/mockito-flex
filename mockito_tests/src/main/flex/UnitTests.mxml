@@ -3,7 +3,7 @@
     <mx:Script>
         <![CDATA[
             import org.mockito.TestMatchers;
-        import org.mockito.impl.TestInvocationsImpl;
+            import org.mockito.impl.TestInvocationsImpl;
             import org.mockito.TestStubbing;
             import org.mockito.TestVerification;
             import org.mockito.impl.TestMockInterceptorImpl;

@@ -33,6 +33,7 @@
 <classEntry path="org.mockito.impl.matchers.GenericMatcher"/>
 <classEntry path="org.mockito.impl.matchers.MatcherFunctions"/>
 <classEntry path="org.mockito.impl.matchers.Matchers"/>
+<classEntry path="org.mockito.impl.matchers.PropertyMatcher"/>
 </includeClasses>
 <includeResources/>
 <namespaceManifests/>

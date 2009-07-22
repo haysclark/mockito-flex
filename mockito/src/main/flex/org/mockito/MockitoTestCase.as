@@ -21,7 +21,7 @@ package org.mockito
 {
     import flexunit.framework.TestCase;
     import flexunit.framework.TestResult;
-
+    
     import org.mockito.api.Matcher;
     import org.mockito.api.MethodSelector;
     import org.mockito.api.MockCreator;
@@ -75,7 +75,7 @@ package org.mockito
          * @param name a name used in various output
          * @return a mocked object
          */
-        public function mock(classToMock:Class, name:String = null, constructorArgs:Array = null):Object
+        public function mock(classToMock:Class, name:String = null, constructorArgs:Array = null):*
         {
             return mockito.mock(classToMock, name, constructorArgs);
         }
@@ -109,26 +109,6 @@ package org.mockito
         }
 
         /**
-         * Matches any argument including <code>null</code>
-         */
-        public function any():*
-        {
-            return mockito.any();
-        }
-
-        /**
-         * Equality matcher
-         * Example:
-         * <listing>
-         * verify(never()).that(system.login(eq("root")));
-         * </listing>
-         */
-        public function eq(expected:*):*
-        {
-            return mockito.eq(expected);
-        }
-
-        /**
          * A fluent interface for making sure call hasn't happened
          * Example:
          * <listing>
@@ -151,7 +131,61 @@ package org.mockito
         {
             return mockito.times(expectedCallsCount);
         }
+        
+        /**
+         * This method it part of the fluent interface
+         * It's a placeholder for the actual method call for verification
+         */
+        public function isItNaN():*
+        {
+            return mockito.isItNaN();
+        }
 
+        /**
+         * Matches any non-null that is of specified type. Type equality is evaluated with equals operator
+         */
+        public function anyOf(clazz:Class):*
+        {
+            return mockito.anyOf(clazz);
+        }
+
+        /**
+         * Verifies if the argument has a property or a property chain of an expected value
+         * @param propertyChain a property name or an array of property names of the objects chain in an argument
+         * @param expectedPropertyValue expected value, equality is evaluated with '=='
+         */
+        public function havingPropertyOf(propertyChain:Object, expectedPropertyValue:Object):*
+        {
+            return mockito.havingPropertyOf(propertyChain, expectedPropertyValue);
+        }
+
+        /**
+         * matches any non-null argument 
+         */
+        public function notNull():*
+        {
+            return mockito.notNull();
+        }
+    
+        /**
+         * Matches any argument including <code>null</code>
+         */
+        public function any():*
+        {
+            return mockito.any();
+        }
+    
+        /**
+         * Equality matcher<br />
+         * Example:<br /><br />
+         * <listing>
+         * verify(never()).that(system.login(eq("root")));
+         * </listing>
+         */
+        public function eq(expected:Object):*
+        {
+            return mockito.eq(expected);;
+        }
         /**
          * A fluent interface for custom matcher
          * Example:

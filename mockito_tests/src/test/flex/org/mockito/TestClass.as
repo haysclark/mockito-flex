@@ -6,7 +6,7 @@ package org.mockito
         {
         }
 
-        public function foo(arg:int = 0):String
+        public function foo(arg:Number = 0):String
         {
             return "foo";
         }
@@ -22,6 +22,11 @@ package org.mockito
 		
 		public function baz(name:String, arg:int):void
 		{
+		}
+		
+		public function qux(anything:Object):void
+		{
+
 		}
     }
 }

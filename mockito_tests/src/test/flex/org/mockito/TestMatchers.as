@@ -50,6 +50,58 @@ public class TestMatchers extends MockitoTestCase
         verify().that(mockie.baz(argThat(new GenericMatcher("two", contains)), eq(10)));
     }
 
+    public function testWillMatchAnyOfType():void
+    {
+        // given
+        var mockie:TestClass = mock(TestClass);
+
+        //when
+        mockie.qux("one two three");
+
+        // then
+        verify().that(mockie.qux(anyOf(String)));
+    }
+
+    public function testWillMatchPropertyChain():void
+    {
+        // given
+        var mockie:TestClass = mock(TestClass);
+
+        var complex:Object = {child:{property:"abc"}};
+        //when
+        mockie.qux(complex);
+
+        // then
+        verify().that(mockie.qux(havingPropertyOf(["child", "property"], "abc")));
+        
+    }
+
+    public function testWillMatchProperty():void
+    {
+        // given
+        var mockie:TestClass = mock(TestClass);
+
+        var complex:Object = {property:"abc"};
+        //when
+        mockie.qux(complex);
+
+        // then
+        verify().that(mockie.qux(havingPropertyOf("property", "abc")));
+    }
+    
+    public function testWillMatchNaN():void
+    {
+        // given
+        var mockie:TestClass = mock(TestClass);
+
+        //when
+        mockie.foo(NaN);
+
+        // then
+        verify().that(mockie.foo(isItNaN()));
+    }
+
+
     private function contains(expected:String, actual:String):Boolean {
         return actual.indexOf(expected) != -1
     }
