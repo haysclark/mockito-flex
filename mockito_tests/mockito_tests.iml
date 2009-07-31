@@ -4,7 +4,6 @@
     <option name="DO_BUILD" value="true" />
     <option name="APPLICATION_ENTRY_POINT" value="$MODULE_DIR$/src/main/flex/UnitTests.mxml" />
     <option name="OUTPUT_FILE_NAME" value="mockito_tests.swf" />
-    <option name="TARGET_PLAYER_VERSION" value="9.0.124" />
     <option name="VERSION" value="2" />
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
@@ -13,7 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/flex" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/flex" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="flex_sdk" jdkType="Flex SDK Type" />
+    <orderEntry type="jdk" jdkName="3.2.0" jdkType="Flex SDK Type" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="libs">
@@ -25,15 +24,7 @@
         <jarDirectory url="file://$MODULE_DIR$/libs" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../idea_project/out/production/mockito/mockito.swc!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="module" module-name="mockito" />
   </component>
 </module>
 
