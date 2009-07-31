@@ -54,7 +54,7 @@ package org.mockito.impl
          */
         public static function createFrom(invocation:IInvocation):Invocation
         {
-            return new InvocationImpl(invocation.invocationTarget, invocation.method.name, invocation.arguments);
+            return new InvocationImpl(invocation.invocationTarget, invocation.method.fullName, invocation.arguments);
         }
 
         public function prepareClasses(classes:Array, calledWhenClassesReady:Function):void

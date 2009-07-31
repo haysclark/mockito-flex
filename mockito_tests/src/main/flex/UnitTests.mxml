@@ -3,6 +3,7 @@
     <mx:Script>
         <![CDATA[
             import org.mockito.TestMatchers;
+            import org.mockito.bugs.TestMocking;
             import org.mockito.impl.TestInvocationsImpl;
             import org.mockito.TestStubbing;
             import org.mockito.TestVerification;
@@ -22,6 +23,7 @@
                 suite.addTestSuite(TestStubbing);
                 suite.addTestSuite(TestInvocationsImpl);
                 suite.addTestSuite(TestMatchers);
+                suite.addTestSuite(TestMocking);
                 return suite;
             }
 
