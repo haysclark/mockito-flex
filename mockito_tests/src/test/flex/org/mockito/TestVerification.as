@@ -169,7 +169,152 @@ package org.mockito
                 fail();
             }
         }
-        
+
+        public function testWillVerifySuccessfullyThatMethodWasCalledExactlyXTimesWithAtLeastVerifier():void
+        {
+            //given
+            var testClass:TestClass = TestClass(mock(TestClass));
+            testClass.foo();
+            // when
+            try
+            {
+                verify(atLeast(1)).that(testClass.foo());
+                //then
+            }
+            catch (e:Error)
+            {
+                fail();
+            }
+        }
+
+        public function testWillVerifySuccessfullyThatMethodWasCalledMoreThenXWithAtLeastVerifier():void
+        {
+            //given
+            var testClass:TestClass = TestClass(mock(TestClass));
+            testClass.foo();
+            testClass.foo();
+            // when
+            try
+            {
+                verify(atLeast(1)).that(testClass.foo());
+                //then
+            }
+            catch (e:Error)
+            {
+                fail();
+            }
+        }
+
+        public function testCannotVerifySuccessfullyIfMethodNotCalledEnoughTimesWithAtLeastVerifier():void
+        {
+            //given
+            var testClass:TestClass = TestClass(mock(TestClass));
+            testClass.foo();
+            testClass.foo();
+            // when
+            try
+            {
+                verify(atLeast(3)).that(testClass.foo());
+                fail();
+            }
+            catch (e:WantedButNotInvoked)
+            {
+                //then
+            }
+        }
+
+
+        public function testWillVerifySuccessfullyThatMethodWasCalledExactlyXTimesWithNotMoreThanVerifier():void
+        {
+            //given
+            var testClass:TestClass = TestClass(mock(TestClass));
+            testClass.foo();
+            // when
+            try
+            {
+                verify(notMoreThan(1)).that(testClass.foo());
+                //then
+            }
+            catch (e:Error)
+            {
+                fail();
+            }
+        }
+
+        public function testWillVerifySuccessfullyThatMethodWasCalledLessThanXTimesWithNotMoreThanVerifier():void
+        {
+            //given
+            var testClass:TestClass = TestClass(mock(TestClass));
+            testClass.foo();
+            // when
+            try
+            {
+                verify(notMoreThan(2)).that(testClass.foo());
+                //then
+            }
+            catch (e:Error)
+            {
+                fail();
+            }
+        }
+
+        public function testCannotVerifySuccessfullyIfMethodWasCalledMoreThanXTimesWithMoreThanVerifier():void
+        {
+            //given
+            var testClass:TestClass = TestClass(mock(TestClass));
+            testClass.foo();
+            testClass.foo();
+            // when
+            try
+            {
+                verify(notMoreThan(1)).that(testClass.foo());
+                fail();
+            }
+            catch (e:ActualNumberOfInvocationsIsDifferent)
+            {
+                //then
+            }
+        }
+
+        public function testWillVerifySuccessfullyIfMethodCallsAreInRange():void
+        {
+            //given
+            var testClass:TestClass = TestClass(mock(TestClass));
+            testClass.foo();
+            testClass.foo();
+            // when
+            try
+            {
+                // when
+                verify(between(1, 3)).that(testClass.foo());
+            }
+            catch (e:Error)
+            {
+                // then
+                fail();
+            }
+        }
+
+        public function testCannotVerifySuccessfullyIfMethodCallsAreOutsideRange():void
+        {
+            //given
+            var testClass:TestClass = TestClass(mock(TestClass));
+            testClass.foo();
+            testClass.foo();
+            testClass.foo();
+            // when
+            try
+            {
+                // when
+                verify(between(1, 2)).that(testClass.foo());
+                fail();
+            }
+            catch (e:ActualNumberOfInvocationsIsDifferent)
+            {
+                // then
+            }
+        }
+
         public function testWillVerifyWhenActualCallsCountIsLess():void
         {
             //given

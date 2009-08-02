@@ -20,8 +20,9 @@
 package org.mockito.impl
 {
     import mx.collections.ArrayCollection;
-    
-    import org.mockito.api.Invocation;
+
+import org.mockito.api.Invocation;
+import org.mockito.api.Invocation;
     import org.mockito.api.Invocations;
 
     /**
@@ -62,7 +63,7 @@ package org.mockito.impl
         {
             for each (var invocation:Invocation in invocations.source)
             {
-                if (invocation.matches(actualInvocation))
+                if (invocation.isStubbed() && invocation.matches(actualInvocation))
                 {
                     return invocation.answer();
                 }
@@ -73,6 +74,22 @@ package org.mockito.impl
         private function filterOutStubbed(item:Invocation):Boolean 
         {
             return !item.isStubbed();
+        }
+
+        /**
+         * @inherited
+         */
+        public function countMatchingInvocations(wanted:Invocation):int
+        {
+            var counter:int;
+            for each (var iv:Invocation in getEncounteredInvocations())
+            {
+                if (wanted.matches(iv))
+                {
+                    counter ++;
+                }
+            }
+            return counter;
         }
     }
 }

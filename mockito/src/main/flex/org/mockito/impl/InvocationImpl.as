@@ -19,8 +19,6 @@
  */
 package org.mockito.impl
 {
-    import asmock.framework.proxy.*;
-    
     import org.mockito.api.Answer;
     import org.mockito.api.Invocation;
     import org.mockito.api.Matcher;
@@ -39,10 +37,6 @@ package org.mockito.impl
             this._target = target;
             this._methodName = methodName;
             this._arguments = arguments;
-//            for each (var arg:Object in arguments)
-//            {
-//                 _arguments.push(Matchers.eq(arg));
-//            }
         }
 
         public function get args():Array
@@ -60,6 +54,28 @@ package org.mockito.impl
             return _methodName;
         }
 
+        private function describeArguments():String
+        {
+            var args:String = "";
+            if (_arguments)
+            {
+                for each (var arg:* in _arguments)
+                {
+                    var stringArg:String;
+                    if (arg is Matcher)
+                    {
+                        stringArg = Matcher(arg).describe();
+                    }
+                    else
+                        stringArg = "" + arg;
+                    if (args.length > 0)
+                        args += ","
+                    args += stringArg;
+                }
+            }
+            return args;
+        }
+
         public function set verified(value:Boolean):void
         {
             _verified = value;
@@ -72,7 +88,7 @@ package org.mockito.impl
 
         public function describe():String
         {
-            return methodName;
+            return methodName + "(" + describeArguments() + ")";
         }
 
         public function matches(other:Invocation):Boolean

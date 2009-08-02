@@ -20,8 +20,9 @@
 package org.mockito.impl.matchers
 {
     import org.mockito.api.Matcher;
+import org.mockito.api.MatcherDescriber;
 
-    public class Matchers
+public class Matchers
     {
         public function Matchers()
         {
@@ -29,12 +30,12 @@ package org.mockito.impl.matchers
 
         public static function isNaN():Matcher
         {
-            return new GenericMatcher(null, MatcherFunctions.isNotANumber);
+            return new GenericMatcher(null, MatcherFunctions.isNotANumber, "NaN");
         } 
 
         public static function anyOf(clazz:Class):Matcher
         {
-            return new GenericMatcher(clazz, MatcherFunctions.matchClasses);
+            return new GenericMatcher(clazz, MatcherFunctions.matchClassesFunction, MatcherDescriptions.matchClasses);
         }
 
         public static function havingPropertyOf(propertyChain:Object, expectedPropertyValue:Object):Matcher
@@ -44,17 +45,17 @@ package org.mockito.impl.matchers
 
         public static function notNull():Matcher
         {
-            return new GenericMatcher(null, MatcherFunctions.actualNotNull);
+            return new GenericMatcher(null, MatcherFunctions.actualNotNull, "not null");
         }
 
         public static function eq(expected:Object):Matcher
         {
-            return new GenericMatcher(expected, MatcherFunctions.eqFunction);
+            return new GenericMatcher(expected, MatcherFunctions.eqFunction, MatcherDescriptions.eq);
         }
 
         public static function any():Matcher
         {
-            return new GenericMatcher(null, MatcherFunctions.anyFunction);
+            return new GenericMatcher(null, MatcherFunctions.anyFunction, "any");
         }
 
     }

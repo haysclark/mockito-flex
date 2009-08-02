@@ -54,7 +54,37 @@ package org.mockito.impl
          */
         public static function createFrom(invocation:IInvocation):Invocation
         {
+            var niceMethodName:String = extractFunctionName(invocation.method.fullName);
             return new InvocationImpl(invocation.invocationTarget, invocation.method.fullName, invocation.arguments);
+        }
+
+        private static function extractFunctionName(fullName:String):String
+        {
+            try
+            {
+                var index:int = fullName.indexOf('/');
+                if (index >= 0)
+                {
+                    fullName = fullName.substr(index + 1);
+                    if (isGetOrSet(fullName))
+                        fullName = reformatGetterOrSetter(fullName);
+                }
+            } catch (e:Error)
+            {
+            }
+            return fullName;
+        }
+
+        private static function reformatGetterOrSetter(fullName:String):String
+        {
+            var index:int = fullName.lastIndexOf("/");
+            var getSet:String = fullName.substring(index + 1);
+            return getSet + " " + fullName.substring(0, index - 1);
+        }
+
+        private static function isGetOrSet(fullName:String):Boolean
+        {
+            return fullName.lastIndexOf("/get") != -1 || fullName.lastIndexOf("/set") != -1;
         }
 
         public function prepareClasses(classes:Array, calledWhenClassesReady:Function):void
