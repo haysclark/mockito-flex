@@ -47,7 +47,7 @@ public class TestMatchers extends MockitoTestCase
         mockie.baz("one two three", 10);
 
         // then
-        verify().that(mockie.baz(argThat(new GenericMatcher("two", contains)), eq(10)));
+        verify().that(mockie.baz(argThat(new GenericMatcher("two", contains, "contains")), eq(10)));
     }
 
     public function testWillMatchAnyOfType():void

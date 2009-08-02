@@ -131,7 +131,43 @@ package org.mockito
         {
             return mockito.times(expectedCallsCount);
         }
-        
+
+        /**
+         * A fluent interface for counting calls
+         * Example:
+         * <listing>
+         * verify(atLeast(2)).that(operator.execute());
+         * </listing>
+         */
+        public function atLeast(expectedCallsCount:int):Verifier
+        {
+            return mockito.atLeast(expectedCallsCount);
+        }
+
+        /**
+         * A fluent interface for counting calls
+         * Example:
+         * <listing>
+         * verify(notMoreThan(2)).that(operator.execute());
+         * </listing>
+         */
+        public function notMoreThan(expectedCallsCount:int):Verifier
+        {
+            return mockito.notMoreThan(expectedCallsCount);
+        }
+
+        /**
+         * A fluent interface for counting calls
+         * Example:
+         * <listing>
+         * verify(between(2, 4)).that(operator.execute());
+         * </listing>
+         */
+        public function between(minimumCallsCount:int, maximumCallsCount:int):Verifier
+        {
+            return mockito.between(minimumCallsCount, maximumCallsCount);
+        }
+
         /**
          * This method it part of the fluent interface
          * It's a placeholder for the actual method call for verification

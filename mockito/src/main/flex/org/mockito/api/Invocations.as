@@ -37,7 +37,14 @@ package org.mockito.api
          * @return list of non stubbed invocations
          */
         function getEncounteredInvocations():ArrayCollection;
-        
+
+        /**
+         * Returns number of encountered invocations
+         * @param iv
+         * @return number of invocations matching the specified invocation
+         */
+        function countMatchingInvocations(iv:Invocation):int;
+
         /**
          * Calls answer that matches invocation 
          * @param iv invocation 

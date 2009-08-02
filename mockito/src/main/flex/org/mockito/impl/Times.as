@@ -40,15 +40,7 @@ package org.mockito.impl
 
         public function verify(wanted:Invocation, invocations:Invocations):void
         {
-            var counter:int = 0;
-
-            for each (var iv:Invocation in invocations.getEncounteredInvocations())
-            {
-                if (wanted.matches(iv))
-                {
-                    counter ++;
-                }
-            }
+            var counter:int = invocations.countMatchingInvocations(wanted);
 
             if (_wantedTimes == 0 && counter > 0)
             {

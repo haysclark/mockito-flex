@@ -28,5 +28,11 @@ package org.mockito.api
          * @return <code>true</code> if the matcher matches the value
          */
         function matches(value:*):Boolean;
+
+        /**
+         * Describes a matcher
+         * @return
+         */
+        function describe():String;
     }
 }

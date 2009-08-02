@@ -29,7 +29,10 @@ package org.mockito
     import org.mockito.api.Stubber;
     import org.mockito.api.Verifier;
     import org.mockito.impl.AsmockMockeryProvider;
-    import org.mockito.impl.StubberImpl;
+import org.mockito.impl.AtLeast;
+import org.mockito.impl.Between;
+import org.mockito.impl.NotMoreThan;
+import org.mockito.impl.StubberImpl;
     import org.mockito.impl.Times;
     import org.mockito.impl.matchers.Matchers;
 
@@ -364,6 +367,42 @@ package org.mockito
         public function never():Verifier
         {
             return Times.never;
+        }
+
+        /**
+         * A fluent interface for counting calls
+         * Example:
+         * <listing>
+         * verify(atLeast(2)).that(operator.execute());
+         * </listing>
+         */
+        public function atLeast(expectedCallsCount:int):Verifier
+        {
+            return new AtLeast(expectedCallsCount);
+        }
+
+        /**
+         * A fluent interface for counting calls
+         * Example:
+         * <listing>
+         * verify(notMoreThan(2)).that(operator.execute());
+         * </listing>
+         */
+        public function notMoreThan(expectedCallsCount:int):Verifier
+        {
+            return new NotMoreThan(expectedCallsCount);
+        }
+
+        /**
+         * A fluent interface for counting calls
+         * Example:
+         * <listing>
+         * verify(between(2, 4)).that(operator.execute());
+         * </listing>
+         */
+        public function between(minimumCallsCount:int, maximumCallsCount:int):Verifier
+        {
+            return new Between(minimumCallsCount, maximumCallsCount);
         }
     }
 }

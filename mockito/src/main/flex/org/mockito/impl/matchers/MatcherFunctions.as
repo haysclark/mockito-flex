@@ -49,7 +49,7 @@ package org.mockito.impl.matchers
             return actual != null;
         }
 
-        public static function matchClasses(expected:*, actual:*):Boolean
+        public static function matchClassesFunction(expected:*, actual:*):Boolean
         {
             return expected == Type.getType(actual).classDefinition;
         }
