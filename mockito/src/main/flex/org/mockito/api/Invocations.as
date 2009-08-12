@@ -19,9 +19,9 @@
  */
 package org.mockito.api
 {
-    import mx.collections.ArrayCollection;
-    
-    /**
+import mx.collections.ArrayCollection;
+
+/**
      * An interface for invocations collection
      */
     public interface Invocations
@@ -47,7 +47,7 @@ package org.mockito.api
 
         /**
          * Calls answer that matches invocation 
-         * @param iv invocation 
+         * @param iv invocation
          * @return a return value or <code>null</code>
          */
         function answerFor(iv:Invocation):*;

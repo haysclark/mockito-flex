@@ -69,10 +69,10 @@ package org.mockito.api
         function addAnswer(answer:Answer):void;
         
         /**
-         * Provides an answer 
+         * Provides an answer
          * @return return value or <code>null</code>
          */
-        function answer():*;
+        function answer(context:StubbingContext):*;
         
         /**
          * Records matchers used in place of the arguments
@@ -86,5 +86,11 @@ package org.mockito.api
          * @return <code>true</code> if used to describe a stubbed invocation
          */
         function isStubbed():Boolean;
+
+        /**
+         * Returns stubbing context
+         * @return 
+         */
+        function get stubbingContext():StubbingContext;
     }
 }

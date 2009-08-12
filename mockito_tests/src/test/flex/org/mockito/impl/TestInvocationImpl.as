@@ -9,7 +9,7 @@ package org.mockito.impl
 
     public class TestInvocationImpl extends TestCase
     {
-        private var invocation:InvocationImpl = new InvocationImpl(null, "ala", []);
+        private var invocation:InvocationImpl = new InvocationImpl(null, "ala", [], null);
 
         public function TestInvocationImpl()
         {
@@ -22,8 +22,8 @@ package org.mockito.impl
             var methodName:String = "ma kota";
             var arguments:Array = [];
 
-            var wanted:Invocation = new InvocationImpl(target, methodName, arguments);
-            var other:Invocation = new InvocationImpl(target, methodName, arguments);
+            var wanted:Invocation = new InvocationImpl(target, methodName, arguments, null);
+            var other:Invocation = new InvocationImpl(target, methodName, arguments, null);
 
             // then
             assertTrue(wanted.matches(other));
@@ -65,7 +65,7 @@ package org.mockito.impl
         public function testWillTryToUseMatchersForArguments():void
         {
             //given
-            invocation = new InvocationImpl(null, "ala", [100]);
+            invocation = new InvocationImpl(null, "ala", [100], null);
             //when
             var argArray:Array = [eq(100)];
             invocation.useMatchers(argArray);
@@ -77,7 +77,7 @@ package org.mockito.impl
         {
             //given
             var argArray:Array = [100];
-            invocation = new InvocationImpl(null, "ala", argArray);
+            invocation = new InvocationImpl(null, "ala", argArray, null);
             //when
             invocation.useMatchers([]);
             //then
@@ -87,7 +87,7 @@ package org.mockito.impl
         public function testWillShoutWhenMatchersCountDifferentFromArgCount():void
         {
             //given
-            invocation = new InvocationImpl(null, "ala", [1, 2]);
+            invocation = new InvocationImpl(null, "ala", [1, 2], null);
             try
             {
                 //when
@@ -99,5 +99,36 @@ package org.mockito.impl
             {
             }
         }
+
+        public function willTellStubbingContextAwareAnswerAboutStubbingContext():void
+        {
+            // given
+            var contextAwareAnswer:TestAnswer = new TestAnswer();
+            invocation = new InvocationImpl(null, "ala", [1, 2], null);
+            invocation.addAnswer(contextAwareAnswer);
+            // when
+            invocation.answer(invocation.stubbingContext);
+            // then
+            assertEquals(1, contextAwareAnswer.useContextCalls);
+        }
+    }
+}
+
+import org.mockito.api.Answer;
+import org.mockito.api.StubbingContext;
+import org.mockito.api.StubbingContextAware;
+
+class TestAnswer implements Answer, StubbingContextAware
+{
+    public var useContextCalls:int;
+
+    public function give():*
+    {
+        return null;
+    }
+
+    public function useContext(stubbingContext:StubbingContext):void
+    {
+        useContextCalls++;
     }
 }

@@ -17,7 +17,7 @@ package org.mockito.impl
             assertNull(interceptor.verifier);
             assertEquals(0, interceptor.getInvocations(target).length);
             // when
-            interceptor.methodCalled(new InvocationImpl(target, null, null));
+            interceptor.methodCalled(new InvocationImpl(target, null, null, null));
             // then
             assertEquals(1, interceptor.getInvocations(target).length);
         }
@@ -27,9 +27,9 @@ package org.mockito.impl
             var mockVerifier:MockVerifier = new MockVerifier(); 
             // given
             interceptor.verifier = mockVerifier; 
-            interceptor.rememberInvocation(new InvocationImpl(target, "foo", []));
+            interceptor.rememberInvocation(new InvocationImpl(target, "foo", [], null));
             // when 
-            interceptor.methodCalled(new InvocationImpl(target, "foo", []));
+            interceptor.methodCalled(new InvocationImpl(target, "foo", [], null));
             // then no exception thrown
             assertNotNull(interceptor);
             assertEquals(1, mockVerifier.verifyCallCount);

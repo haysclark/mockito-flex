@@ -28,5 +28,12 @@ package org.mockito
 		{
 
 		}
+
+        public var storedParameter:String;
+
+        public function callingOriginal(param:String):void
+        {
+            storedParameter = param;
+        }
     }
 }

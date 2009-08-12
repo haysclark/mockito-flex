@@ -19,7 +19,7 @@ package org.mockito.impl
         public function testWillVerifySucessfully():void
         {
             // given
-            var wanted:Invocation = new InvocationImpl(new Object(), "someMethod", []);
+            var wanted:Invocation = new InvocationImpl(new Object(), "someMethod", [], null);
             var invocations:Invocations = new InvocationsImpl();
             invocations.addInvocation(wanted);
             

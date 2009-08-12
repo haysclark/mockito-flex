@@ -19,24 +19,24 @@
  */
 package org.mockito
 {
-    import asmock.reflection.*;
-    
-    import org.mockito.api.Matcher;
-    import org.mockito.api.MethodSelector;
-    import org.mockito.api.MockCreator;
-    import org.mockito.api.MockInterceptor;
-    import org.mockito.api.MockeryProvider;
-    import org.mockito.api.Stubber;
-    import org.mockito.api.Verifier;
-    import org.mockito.impl.AsmockMockeryProvider;
+import org.mockito.api.Answer;
+import org.mockito.api.Matcher;
+import org.mockito.api.MethodSelector;
+import org.mockito.api.MockCreator;
+import org.mockito.api.MockInterceptor;
+import org.mockito.api.MockeryProvider;
+import org.mockito.api.Stubber;
+import org.mockito.api.Verifier;
+import org.mockito.impl.AsmockMockeryProvider;
 import org.mockito.impl.AtLeast;
 import org.mockito.impl.Between;
+import org.mockito.impl.CallOriginal;
 import org.mockito.impl.NotMoreThan;
 import org.mockito.impl.StubberImpl;
-    import org.mockito.impl.Times;
-    import org.mockito.impl.matchers.Matchers;
+import org.mockito.impl.Times;
+import org.mockito.impl.matchers.Matchers;
 
-    /**
+/**
      * <h3>Main mocking entry point</h3>
      * <p>
      * You should start mocking by calling the prepareClasses(...) and providing all the classes to mock in given test case.
@@ -403,6 +403,19 @@ import org.mockito.impl.StubberImpl;
         public function between(minimumCallsCount:int, maximumCallsCount:int):Verifier
         {
             return new Between(minimumCallsCount, maximumCallsCount);
+        }
+
+        /**
+         * A fluent interface for the answer calling original method
+         * Example:
+         * <listing>
+         * given(generator.generate()).will(callOriginal());
+         * </listing>
+         * @return answer executing original non-mocked function
+         */
+        public function callOriginal():Answer
+        {
+            return new CallOriginal();
         }
     }
 }

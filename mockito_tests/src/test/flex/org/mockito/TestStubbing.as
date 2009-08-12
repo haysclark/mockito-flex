@@ -99,5 +99,16 @@ public class TestStubbing extends MockitoTestCase
         //TODO some day
         //            assertEquals("10", mock.foo());
     }
+
+    public function testWillCallOriginalFunction():void
+    {
+        // given
+        assertNull(mockie.storedParameter);
+        given(mockie.callingOriginal(any())).will(callOriginal());
+        // when
+        mockie.callingOriginal("a parameter to be stored in a field");
+        // then
+        assertEquals("a parameter to be stored in a field", mockie.storedParameter);
+    }
 }
 }

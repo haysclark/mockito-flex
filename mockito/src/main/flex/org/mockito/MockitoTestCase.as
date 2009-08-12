@@ -19,16 +19,17 @@
  */
 package org.mockito
 {
-    import flexunit.framework.TestCase;
-    import flexunit.framework.TestResult;
-    
-    import org.mockito.api.Matcher;
-    import org.mockito.api.MethodSelector;
-    import org.mockito.api.MockCreator;
-    import org.mockito.api.Stubber;
-    import org.mockito.api.Verifier;
-    
-    /**
+import flexunit.framework.TestCase;
+import flexunit.framework.TestResult;
+
+import org.mockito.api.Answer;
+import org.mockito.api.Matcher;
+import org.mockito.api.MethodSelector;
+import org.mockito.api.MockCreator;
+import org.mockito.api.Stubber;
+import org.mockito.api.Verifier;
+
+/**
      * Integration test case for the flexunit.
      */
     public class MockitoTestCase extends TestCase
@@ -242,6 +243,19 @@ package org.mockito
         public function argThat(matcher:Matcher):*
         {
             return mockito.argThat(matcher);
+        }
+
+        /**
+         * A fluent interface for the answer calling original method
+         * Example:
+         * <listing>
+         * given(generator.generate()).will(callOriginal());
+         * </listing>
+         * @return answer executing original non-mocked function
+         */
+        public function callOriginal():Answer
+        {
+            return mockito.callOriginal();
         }
     }
 }

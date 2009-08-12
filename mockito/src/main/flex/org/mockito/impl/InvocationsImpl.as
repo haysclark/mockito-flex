@@ -19,19 +19,18 @@
  */
 package org.mockito.impl
 {
-    import mx.collections.ArrayCollection;
+import mx.collections.ArrayCollection;
 
 import org.mockito.api.Invocation;
-import org.mockito.api.Invocation;
-    import org.mockito.api.Invocations;
+import org.mockito.api.Invocations;
 
-    /**
+/**
      * Default implementation of the Invocations.
      */
     public class InvocationsImpl implements Invocations
     {
         private var invocations:ArrayCollection;
-        
+
         public function InvocationsImpl()
         {
             invocations = new ArrayCollection();
@@ -65,7 +64,7 @@ import org.mockito.api.Invocation;
             {
                 if (invocation.isStubbed() && invocation.matches(actualInvocation))
                 {
-                    return invocation.answer();
+                    return invocation.answer(actualInvocation.stubbingContext);
                 }
             }
             return null;

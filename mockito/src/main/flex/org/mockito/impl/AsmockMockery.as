@@ -55,7 +55,7 @@ package org.mockito.impl
         public static function createFrom(invocation:IInvocation):Invocation
         {
             var niceMethodName:String = extractFunctionName(invocation.method.fullName);
-            return new InvocationImpl(invocation.invocationTarget, invocation.method.fullName, invocation.arguments);
+            return new InvocationImpl(invocation.invocationTarget, invocation.method.fullName, invocation.arguments, new AsmockOriginalCallSeam(invocation));
         }
 
         private static function extractFunctionName(fullName:String):String
