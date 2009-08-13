@@ -8,14 +8,12 @@
             import org.mockito.TestStubbing;
             import org.mockito.TestVerification;
             import org.mockito.impl.TestMockInterceptorImpl;
-            import org.mockito.impl.TestAsmockMockery;
             import org.mockito.impl.TestInvocationImpl;
             import org.mockito.impl.TestTimes;
             import flexunit.framework.TestSuite;
             public function create():TestSuite
             {
                 var suite:TestSuite = new TestSuite();
-                suite.addTestSuite(TestAsmockMockery);
                 suite.addTestSuite(TestTimes);
                 suite.addTestSuite(TestInvocationImpl);
                 suite.addTestSuite(TestMockInterceptorImpl);
