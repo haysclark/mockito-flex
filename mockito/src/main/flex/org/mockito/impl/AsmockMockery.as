@@ -30,9 +30,12 @@ package org.mockito.impl
     import org.mockito.api.Invocation;
     import org.mockito.api.MockCreator;
     import org.mockito.api.MockInterceptor;
-    
+    import asmock.framework.asmock_internal;
+
+    use namespace asmock_internal;
     /**
-     * Asmock bridge. Utilizes asmock facilities to create mock objects. 
+     * Asmock bridge. Utilizes asmock facilities to create mock objects.
+     * @private  
      */
     public class AsmockMockery extends MockRepository implements MockCreator 
     {
@@ -101,12 +104,12 @@ package org.mockito.impl
         {
             if (name == null)
                 name = Type.getType(clazz).name;
-            var mock:Object = create(clazz, constructorArgs);
+            var mock:Object = createStrict(clazz, constructorArgs);
             registerAlias(mock, name);
             return mock;
         }
 
-        override public function methodCall(invocation:IInvocation, target:Object, method:MethodInfo, arguments:Array):*
+        override asmock_internal function methodCall(invocation:IInvocation, target:Object, method:MethodInfo, arguments:Array):*
         {
             return interceptor.methodCalled(createFrom(invocation));
         }
