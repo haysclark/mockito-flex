@@ -101,9 +101,21 @@ public class TestMatchers extends MockitoTestCase
         verify().that(mockie.foo(isItNaN()));
     }
 
+    public function testWillMatchWithFunctionMatcher():void
+    {
+        // given
+        var mockie:TestClass = mock(TestClass);
+        //when
+        mockie.foo(1234);
+        // then
+        verify().that(mockie.foo(argThatMatches(1234, function (expected:int, actual:int):Boolean
+        {
+            return expected == actual;
+        })));
+    }
 
     private function contains(expected:String, actual:String):Boolean {
-        return actual.indexOf(expected) != -1
+        return actual.indexOf(expected) != -1;
     }
 }
 }
