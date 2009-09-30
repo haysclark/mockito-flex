@@ -12,7 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/flex" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/flex" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="3.2.0" jdkType="Flex SDK Type" />
+    <orderEntry type="jdk" jdkName="3.2.0_3958" jdkType="Flex SDK Type" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="libs">

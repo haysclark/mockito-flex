@@ -81,7 +81,7 @@ package org.mockito.impl
         public function stubLatestInvocation(answer:Answer):void
         {
             if (!latestInvocation)
-                throw new MissingMethodCallToStub();
+                throw new MissingMethodCallToStub("Please make sure you specified a call to stub in given(...)");
             latestInvocation.addAnswer(answer);
         }
 
