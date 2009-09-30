@@ -13,16 +13,19 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/flex" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="3.2.0" jdkType="Flex SDK Type" />
+    <orderEntry type="jdk" jdkName="3.2.0_3958" jdkType="Flex SDK Type" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="libs">
         <CLASSES>
-          <root url="file://$MODULE_DIR$/libs" />
+          <root url="jar://$MODULE_DIR$/libs/debugger-0.2alpha2.swc!/" />
+          <root url="jar://$MODULE_DIR$/libs/flexunit-0.85.swc!/" />
+          <root url="jar://$MODULE_DIR$/libs/asunit-20071011.swc!/" />
+          <root url="jar://$MODULE_DIR$/libs/flexunit-optional-0.85.swc!/" />
+          <root url="jar://$MODULE_DIR$/libs/ASMock-0.9.swc!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/libs" recursive="false" />
       </library>
     </orderEntry>
   </component>

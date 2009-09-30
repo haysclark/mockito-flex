@@ -110,5 +110,15 @@ public class TestStubbing extends MockitoTestCase
         // then
         assertEquals("a parameter to be stored in a field", mockie.storedParameter);
     }
+
+    public function testWillAllowSettingPublicVariablesMarkedAsBindable():void
+    {
+        given(mockie.bindableProperty = any()).will(callOriginal());
+        given(mockie.bindableProperty).will(callOriginal());
+
+        mockie.bindableProperty = "some new value";
+
+        assertEquals("some new value", mockie.bindableProperty);
+    }
 }
 }
