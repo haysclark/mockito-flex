@@ -177,6 +177,22 @@ public function argThat(matcher:Matcher):*
 }
 
 /**
+ * A shortcut for creating a GenericMatcher that accepts a matching function
+ * @param expected is an expected value as passed to the GenericMatcher
+ * @param func a matching function of a signature function (expected:*, actual:*):Boolean
+ *
+ * Example:
+ * <listing>
+ *     argThatMatches(10, compareInts);
+ * </listing>
+ */
+public function argThatMatches(expected:*, func:Function):*
+{
+    return mockito.argThatMatches(expected, func);
+}
+
+
+/**
  * A fluent interface for the answer calling original method
  * Example:
  * <listing>

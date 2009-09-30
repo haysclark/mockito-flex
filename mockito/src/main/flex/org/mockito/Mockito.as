@@ -34,6 +34,7 @@ import org.mockito.impl.CallOriginal;
 import org.mockito.impl.NotMoreThan;
 import org.mockito.impl.StubberImpl;
 import org.mockito.impl.Times;
+import org.mockito.impl.matchers.GenericMatcher;
 import org.mockito.impl.matchers.Matchers;
 
 /**
@@ -343,6 +344,21 @@ import org.mockito.impl.matchers.Matchers;
         public function argThat(matcher:Matcher):void
         {
             mockInterceptor.addMatcher(matcher);
+        }
+
+        /**
+         * A shortcut for creating a GenericMatcher that accepts a matching function
+         * @param expected is an expected value as passed to the GenericMatcher
+         * @param func a matching function of a signature function (expected:*, actual:*):Boolean
+         *
+         * Example:
+         * <listing>
+         *     argThatMatches(10, compareInts);
+         * </listing>
+         */
+        public function argThatMatches(expected:*, func:Function):*
+        {
+            return argThat(new GenericMatcher(expected, func));
         }
 
         /**
