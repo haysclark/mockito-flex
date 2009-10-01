@@ -1,7 +1,8 @@
 package org.mockito
 {
     import org.mockito.impl.ActualNumberOfInvocationsIsDifferent;
-    import org.mockito.impl.NeverWantedButInvoked;
+import org.mockito.impl.InvocationsNotInOrder;
+import org.mockito.impl.NeverWantedButInvoked;
     import org.mockito.impl.WantedButNotInvoked;
 
     public class TestVerification extends MockitoTestCase
@@ -349,7 +350,54 @@ package org.mockito
             }
         }
 
-    //TODO later:        
+
+        public function testWillVerifyMethodsInOrder():void
+        {
+            // given
+            var testClass:TestClass = TestClass(mock(TestClass));
+            testClass.foo();
+            testClass.bar();
+            // when
+            inOrder().verify().that(testClass.foo());
+            inOrder().verify().that(testClass.bar());
+            // then
+        }
+
+        public function testWillAllowUsingSelectiveMethodOrder():void
+        {
+            // given
+            var testClass:TestClass = TestClass(mock(TestClass));
+            testClass.foo();
+            testClass.argumentless();
+            testClass.bar();
+            // when
+            verify().that(testClass.argumentless());
+            inOrder().verify().that(testClass.foo());
+            inOrder().verify().that(testClass.bar());
+            // then
+        }
+
+        public function testWillVerifyMethodsNotInOrder():void
+        {
+            // given
+            var testClass:TestClass = TestClass(mock(TestClass));
+            testClass.foo();
+            testClass.bar();
+            // when
+            try
+            {
+                inOrder().verify().that(testClass.bar());
+                inOrder().verify().that(testClass.foo());
+                fail();
+            }
+            catch (e:InvocationsNotInOrder)
+            {
+                // then
+            }
+        }
+
+
+        //TODO later:        
     //TODO atLeast(4)
     //TODO atLeastOnce()
     //TODO once()

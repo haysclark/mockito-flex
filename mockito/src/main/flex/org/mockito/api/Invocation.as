@@ -92,5 +92,7 @@ package org.mockito.api
          * @return 
          */
         function get stubbingContext():StubbingContext;
+
+        function get sequenceNumber():int
     }
 }

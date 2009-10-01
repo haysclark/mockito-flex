@@ -24,14 +24,20 @@ import org.mockito.api.Matcher;
 import org.mockito.api.MethodSelector;
 import org.mockito.api.MockCreator;
 import org.mockito.api.MockInterceptor;
+import org.mockito.api.MockVerificable;
 import org.mockito.api.MockeryProvider;
+import org.mockito.api.SequenceNumberGenerator;
+import org.mockito.api.SequenceNumberTracker;
 import org.mockito.api.Stubber;
+import org.mockito.api.Verifier;
 import org.mockito.api.Verifier;
 import org.mockito.impl.AsmockMockeryProvider;
 import org.mockito.impl.AtLeast;
 import org.mockito.impl.Between;
 import org.mockito.impl.CallOriginal;
+import org.mockito.impl.InOrder;
 import org.mockito.impl.NotMoreThan;
+import org.mockito.impl.OrderedVerification;
 import org.mockito.impl.StubberImpl;
 import org.mockito.impl.Times;
 import org.mockito.impl.matchers.GenericMatcher;
@@ -203,11 +209,15 @@ import org.mockito.impl.matchers.Matchers;
      * </listing>
      * </p>
      */
-    public class Mockito implements MethodSelector, MockCreator
+    public class Mockito implements MethodSelector, MockCreator, SequenceNumberGenerator, SequenceNumberTracker, MockVerificable
     {
         private var mockCreator:MockCreator;
 
         private var mockInterceptor:MockInterceptor;
+
+        private var sequence:int = 0;
+
+        private var _sequenceNumber:int = -1;        
 
         public static var defaultProviderClass:Class = AsmockMockeryProvider;
 
@@ -217,7 +227,7 @@ import org.mockito.impl.matchers.Matchers;
         {
             super();
             instance = this;
-            var provider:MockeryProvider = mockeryProviderClass ? new mockeryProviderClass() : new defaultProviderClass;
+            var provider:MockeryProvider = mockeryProviderClass ? new mockeryProviderClass(this, this) : new defaultProviderClass(this, this);
             mockCreator = provider.getMockCreator();
             mockInterceptor = provider.getMockInterceptor();
         }
@@ -246,9 +256,24 @@ import org.mockito.impl.matchers.Matchers;
         public function verify(verifier:Verifier=null):MethodSelector
         {
             if (verifier == null)
-                verifier = Times.once;
+                verifier = defaultVerifier;
             mockInterceptor.verifier = verifier;
             return this;
+        }
+
+        public function get defaultVerifier():Verifier
+        {
+            return Times.once;
+        }
+
+        /**
+         * A starter function for verification of executions in order
+         * If you dont specify the verifier, an equivalent of times(1) is used.
+         * @param verifier object responsible for verification of the following execution
+         */
+        public function inOrder():MockVerificable
+        {
+            return new OrderedVerification(this);
         }
 
         /**
@@ -285,7 +310,7 @@ import org.mockito.impl.matchers.Matchers;
         {
             return argThat(Matchers.anyOf(clazz));
         }
-    
+
         /**
          * Verifies if the argument has a property or a property chain of an expected value
          * @param propertyChain a property name or an array of property names of the objects chain in an argument
@@ -295,15 +320,15 @@ import org.mockito.impl.matchers.Matchers;
         {
             return argThat(Matchers.havingPropertyOf(propertyChain, expectedPropertyValue));
         }
-    
+
         /**
-         * matches any non-null argument 
+         * matches any non-null argument
          */
         public function notNull():*
         {
             return argThat(Matchers.notNull());
         }
-    
+
         /**
          * Matches any argument including <code>null</code>
          */
@@ -311,7 +336,7 @@ import org.mockito.impl.matchers.Matchers;
         {
             return argThat(Matchers.any());
         }
-    
+
         /**
          * Equality matcher<br />
          * Example:<br /><br />
@@ -432,6 +457,21 @@ import org.mockito.impl.matchers.Matchers;
         public function callOriginal():Answer
         {
             return new CallOriginal();
+        }
+
+        public function next():int
+        {
+            return sequence++;
+        }
+
+        public function set sequenceNumber(sequenceNumber:int):void
+        {
+            _sequenceNumber = sequenceNumber;
+        }
+
+        public function get sequenceNumber():int
+        {
+            return _sequenceNumber;
         }
     }
 }

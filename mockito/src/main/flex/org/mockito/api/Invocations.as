@@ -45,12 +45,18 @@ import mx.collections.ArrayCollection;
          */
         function countMatchingInvocations(iv:Invocation):int;
 
+        function getSequenceNumberForFirstMatching(wanted:Invocation, startingWithNumber:int):int;
+
         /**
          * Calls answer that matches invocation 
          * @param iv invocation
          * @return a return value or <code>null</code>
          */
         function answerFor(iv:Invocation):*;
+
+        function set sequenceNumber(s:int):void;
+
+        function get sequenceNumber():int;
         
     }
 }

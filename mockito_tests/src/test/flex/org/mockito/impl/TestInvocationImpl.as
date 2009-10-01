@@ -9,7 +9,7 @@ package org.mockito.impl
 
     public class TestInvocationImpl extends TestCase
     {
-        private var invocation:InvocationImpl = new InvocationImpl(null, "ala", [], null);
+        private var invocation:InvocationImpl = new InvocationImpl(null, "ala", [], null, 1);
 
         public function TestInvocationImpl()
         {
@@ -22,8 +22,8 @@ package org.mockito.impl
             var methodName:String = "ma kota";
             var arguments:Array = [];
 
-            var wanted:Invocation = new InvocationImpl(target, methodName, arguments, null);
-            var other:Invocation = new InvocationImpl(target, methodName, arguments, null);
+            var wanted:Invocation = new InvocationImpl(target, methodName, arguments, null, 1);
+            var other:Invocation = new InvocationImpl(target, methodName, arguments, null, 2);
 
             // then
             assertTrue(wanted.matches(other));
@@ -65,7 +65,7 @@ package org.mockito.impl
         public function testWillTryToUseMatchersForArguments():void
         {
             //given
-            invocation = new InvocationImpl(null, "ala", [100], null);
+            invocation = new InvocationImpl(null, "ala", [100], null, 1);
             //when
             var argArray:Array = [eq(100)];
             invocation.useMatchers(argArray);
@@ -77,7 +77,7 @@ package org.mockito.impl
         {
             //given
             var argArray:Array = [100];
-            invocation = new InvocationImpl(null, "ala", argArray, null);
+            invocation = new InvocationImpl(null, "ala", argArray, null, 1);
             //when
             invocation.useMatchers([]);
             //then
@@ -87,7 +87,7 @@ package org.mockito.impl
         public function testWillShoutWhenMatchersCountDifferentFromArgCount():void
         {
             //given
-            invocation = new InvocationImpl(null, "ala", [1, 2], null);
+            invocation = new InvocationImpl(null, "ala", [1, 2], null, 1);
             try
             {
                 //when
@@ -104,7 +104,7 @@ package org.mockito.impl
         {
             // given
             var contextAwareAnswer:TestAnswer = new TestAnswer();
-            invocation = new InvocationImpl(null, "ala", [1, 2], null);
+            invocation = new InvocationImpl(null, "ala", [1, 2], null, 1);
             invocation.addAnswer(contextAwareAnswer);
             // when
             invocation.answer(invocation.stubbingContext);
