@@ -12,10 +12,10 @@ package org.mockito.impl
         public function testWillNotReturnStubbedInvocation():void
         {
             // given
-            var stubbed:InvocationImpl = new InvocationImpl({}, "abc", [], null);
+            var stubbed:InvocationImpl = new InvocationImpl({}, "abc", [], null, 1);
             stubbed.addAnswer(new ReturningAnswer(""));
-            var regular:InvocationImpl = new InvocationImpl({}, "abc", [], null);
-            var invocations:InvocationsImpl = new InvocationsImpl();
+            var regular:InvocationImpl = new InvocationImpl({}, "abc", [], null, 1);
+            var invocations:InvocationsImpl = new InvocationsImpl(null);
             // when
             invocations.addInvocation(stubbed);
             invocations.addInvocation(regular);

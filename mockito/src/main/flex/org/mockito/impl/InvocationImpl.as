@@ -35,13 +35,15 @@ public class InvocationImpl implements Invocation, StubbingContext
     private var _arguments:Array;
     private var _answer:Answer;
     private var _originalCallSeam:OriginalCallSeam;
+    private var _sequenceNumber:int;
 
-    public function InvocationImpl(target:Object, methodName:String, arguments:Array, originalCallSeam:OriginalCallSeam)
+    public function InvocationImpl(target:Object, methodName:String, arguments:Array, originalCallSeam:OriginalCallSeam, sequenceNumber:int)
     {
         this._target = target;
         this._methodName = methodName;
         this._arguments = arguments;
         this._originalCallSeam = originalCallSeam;
+        this._sequenceNumber = sequenceNumber;
     }
 
     public function get args():Array
@@ -192,6 +194,11 @@ public class InvocationImpl implements Invocation, StubbingContext
     public function get stubbingContext():StubbingContext
     {
         return this;
+    }
+
+    public function get sequenceNumber():int
+    {
+        return _sequenceNumber;
     }
 }
 }

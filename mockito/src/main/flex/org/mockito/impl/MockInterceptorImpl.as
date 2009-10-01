@@ -3,45 +3,50 @@
  *
  * Copyright (c) 2009 Mockito contributors
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
- * and associated documentation files (the "Software"), to deal in the Software without restriction, 
- * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE 
- * AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+ * AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package org.mockito.impl
 {
     import flash.utils.Dictionary;
-    
+
     import mx.collections.ArrayCollection;
-    
+
     import org.mockito.api.Answer;
     import org.mockito.api.Invocation;
     import org.mockito.api.Invocations;
     import org.mockito.api.Matcher;
     import org.mockito.api.MockInterceptor;
+    import org.mockito.api.SequenceNumberGenerator;
+    import org.mockito.api.SequenceNumberTracker;
     import org.mockito.api.Verifier;
 
     public class MockInterceptorImpl implements MockInterceptor
     {
         public var invocationsMap:Dictionary = new Dictionary();
-        
+
         private var matchers:Array = new Array();
 
         private var _verifier:Verifier;
-        
+
         private var latestInvocation:Invocation;
 
-        public function MockInterceptorImpl()
+        private var sequenceNumberTracker:SequenceNumberTracker;
+
+        public function MockInterceptorImpl(sequenceNumberTracker:SequenceNumberTracker)
         {
+            this.sequenceNumberTracker = sequenceNumberTracker;
         }
 
         public function methodCalled(invocation:Invocation):*
@@ -77,7 +82,7 @@ package org.mockito.impl
             invocations.addInvocation(invocation);
             latestInvocation = invocation;
         }
-        
+
         public function stubLatestInvocation(answer:Answer):void
         {
             if (!latestInvocation)
@@ -90,7 +95,7 @@ package org.mockito.impl
             var invocations:Invocations = invocationsMap[target];
             if (!invocations)
             {
-                invocations = new InvocationsImpl();
+                invocations = new InvocationsImpl(sequenceNumberTracker);
                 invocationsMap[target] = invocations;
             }
             return invocations;
@@ -110,7 +115,7 @@ package org.mockito.impl
         {
             return _verifier;
         }
-        
+
         public function addMatcher(matcher:Matcher):void
         {
             this.matchers.push(matcher);

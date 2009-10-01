@@ -28,6 +28,7 @@ import org.mockito.api.MethodSelector;
 import org.mockito.api.MockCreator;
 import org.mockito.api.Stubber;
 import org.mockito.api.Verifier;
+import org.mockito.api.MockVerificable;
 
     /**
      * Integration test case for the flexunit.

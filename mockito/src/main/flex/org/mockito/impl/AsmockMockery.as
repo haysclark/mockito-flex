@@ -32,21 +32,25 @@ package org.mockito.impl
     import org.mockito.api.MockInterceptor;
     import asmock.framework.asmock_internal;
 
-    use namespace asmock_internal;
+import org.mockito.api.SequenceNumberGenerator;
+
+use namespace asmock_internal;
     /**
      * Asmock bridge. Utilizes asmock facilities to create mock objects.
      * @private  
      */
     public class AsmockMockery extends MockRepository implements MockCreator 
     {
-        
         public var interceptor:MockInterceptor;
         
         protected var _names:Dictionary = new Dictionary();
 
-        public function AsmockMockery(interceptor:MockInterceptor)
+        private var sequenceNumberGenerator:SequenceNumberGenerator;
+
+        public function AsmockMockery(interceptor:MockInterceptor, sequenceNumberGenerator:SequenceNumberGenerator)
         {
             this.interceptor = interceptor;
+            this.sequenceNumberGenerator = sequenceNumberGenerator;
         }
 
         /**
@@ -55,10 +59,14 @@ package org.mockito.impl
          * @return mockito invocation
          * 
          */
-        public static function createFrom(invocation:IInvocation):Invocation
+        public function createFrom(invocation:IInvocation):Invocation
         {
             var niceMethodName:String = new AsmockMethodNameFormatter().extractFunctionName(invocation.method.fullName);
-            return new InvocationImpl(invocation.invocationTarget, invocation.method.fullName, invocation.arguments, new AsmockOriginalCallSeam(invocation));
+            return new InvocationImpl(invocation.invocationTarget,
+                                      invocation.method.fullName,
+                                      invocation.arguments,
+                                      new AsmockOriginalCallSeam(invocation),
+                                      sequenceNumberGenerator.next());
         }
 
         public function prepareClasses(classes:Array, calledWhenClassesReady:Function):void

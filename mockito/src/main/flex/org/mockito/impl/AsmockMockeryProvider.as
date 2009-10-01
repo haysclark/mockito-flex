@@ -22,8 +22,10 @@ package org.mockito.impl
     import org.mockito.api.MockCreator;
     import org.mockito.api.MockInterceptor;
     import org.mockito.api.MockeryProvider;
+import org.mockito.api.SequenceNumberGenerator;
+import org.mockito.api.SequenceNumberTracker;
 
-    /**
+/**
      * 
      * Implementation of the mockery provider that creates asmock based implementation
      */
@@ -36,10 +38,11 @@ package org.mockito.impl
         /**
          * Creates mockery provider
          */
-        public function AsmockMockeryProvider()
+        public function AsmockMockeryProvider(sequenceNumberGenerator:SequenceNumberGenerator,
+                                              sequenceNumberTracker:SequenceNumberTracker)
         {
-            mockInterceptor = new MockInterceptorImpl();
-            mockCreator = new AsmockMockery(mockInterceptor);
+            mockInterceptor = new MockInterceptorImpl(sequenceNumberTracker);
+            mockCreator = new AsmockMockery(mockInterceptor, sequenceNumberGenerator);
         }
 
         /**

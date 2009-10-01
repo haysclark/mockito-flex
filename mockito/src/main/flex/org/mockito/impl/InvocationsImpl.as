@@ -23,6 +23,7 @@ import mx.collections.ArrayCollection;
 
 import org.mockito.api.Invocation;
 import org.mockito.api.Invocations;
+import org.mockito.api.SequenceNumberTracker;
 
 /**
      * Default implementation of the Invocations.
@@ -31,9 +32,12 @@ import org.mockito.api.Invocations;
     {
         private var invocations:ArrayCollection;
 
-        public function InvocationsImpl()
+        private var sequenceNumberTracker:SequenceNumberTracker;
+
+        public function InvocationsImpl(sequenceNumberTracker:SequenceNumberTracker)
         {
             invocations = new ArrayCollection();
+            this.sequenceNumberTracker = sequenceNumberTracker;
         }
 
         /**
@@ -89,6 +93,28 @@ import org.mockito.api.Invocations;
                 }
             }
             return counter;
+        }
+
+        public function getSequenceNumberForFirstMatching(wanted:Invocation, startingWithNumber:int):int
+        {
+            for each (var iv:Invocation in getEncounteredInvocations())
+            {
+                if (iv.sequenceNumber >= startingWithNumber && wanted.matches(iv))
+                {
+                    return iv.sequenceNumber;
+                }
+            }
+            return -1;
+        }
+
+        public function set sequenceNumber(s:int):void
+        {
+            sequenceNumberTracker.sequenceNumber = s;
+        }
+
+        public function get sequenceNumber():int
+        {
+            return sequenceNumberTracker.sequenceNumber;
         }
     }
 }

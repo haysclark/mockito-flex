@@ -22,6 +22,8 @@ package org.mockito.api
 
     /**
      * An interface for MockeryProvider. A facade over the actual mock creation and invocations intercepting.
+     * It should have a constructor (sequenceNumberGenerator:SequenceNumberGenerator,
+     *                                         sequenceNumberTracker:SequenceNumberTracker)
      */
     public interface MockeryProvider
     {

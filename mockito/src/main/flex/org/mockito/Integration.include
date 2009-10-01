@@ -22,6 +22,11 @@ public function verify(verifier:Verifier = null):MethodSelector
     return mockito.verify(verifier);
 }
 
+public function inOrder():MockVerificable
+{
+    return mockito.inOrder();
+}
+
 /**
  * A starter function for stubbing
  * @param methodCallToStub call a method to stub as an argument
