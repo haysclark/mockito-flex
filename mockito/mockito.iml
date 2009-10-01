@@ -23,9 +23,12 @@
           <root url="jar://$MODULE_DIR$/libs/asunit-20071011.swc!/" />
           <root url="jar://$MODULE_DIR$/libs/flexunit-optional-0.85.swc!/" />
           <root url="jar://$MODULE_DIR$/libs/ASMock-0.9.swc!/" />
+          <root url="jar://$MODULE_DIR$/libs/FUnit.swc!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../FUnit/Framework/main/source" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>
