@@ -6,11 +6,8 @@ import org.mockito.api.Verifier;
 
 public class InOrder implements Verifier
 {
-    private var _verifier:Verifier;
-
-    public function InOrder(verifier:Verifier)
+    public function InOrder()
     {
-        _verifier = verifier;
     }
 
     public function verify(wanted:Invocation, invocations:Invocations):void
@@ -19,7 +16,6 @@ public class InOrder implements Verifier
         if (invocations.sequenceNumber > foundSequence || foundSequence < 0)
             throw new InvocationsNotInOrder("Invocation " + wanted.describe() + " not in order.");
         invocations.sequenceNumber = foundSequence;
-        _verifier.verify(wanted, invocations);
     }
 }
 }

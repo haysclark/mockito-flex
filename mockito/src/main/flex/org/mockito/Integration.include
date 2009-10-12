@@ -22,7 +22,7 @@ public function verify(verifier:Verifier = null):MethodSelector
     return mockito.verify(verifier);
 }
 
-public function inOrder():MockVerificable
+public function inOrder():OrderedVerificable
 {
     return mockito.inOrder();
 }
