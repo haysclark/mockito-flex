@@ -8,7 +8,5 @@ public interface MockVerificable
      * @param verifier object responsible for verification of the following execution
      */
     function verify(verifier:Verifier=null):MethodSelector;
-
-    function get defaultVerifier():Verifier;
 }
 }

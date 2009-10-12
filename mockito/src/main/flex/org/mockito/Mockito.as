@@ -26,24 +26,21 @@ import org.mockito.api.MockCreator;
 import org.mockito.api.MockInterceptor;
 import org.mockito.api.MockVerificable;
 import org.mockito.api.MockeryProvider;
-import org.mockito.api.SequenceNumberGenerator;
-import org.mockito.api.SequenceNumberTracker;
+import org.mockito.api.OrderedVerificable;
 import org.mockito.api.Stubber;
-import org.mockito.api.Verifier;
 import org.mockito.api.Verifier;
 import org.mockito.impl.AsmockMockeryProvider;
 import org.mockito.impl.AtLeast;
 import org.mockito.impl.Between;
 import org.mockito.impl.CallOriginal;
-import org.mockito.impl.InOrder;
 import org.mockito.impl.NotMoreThan;
-import org.mockito.impl.OrderedVerification;
+import org.mockito.impl.InOrderVerificable;
 import org.mockito.impl.StubberImpl;
 import org.mockito.impl.Times;
 import org.mockito.impl.matchers.GenericMatcher;
 import org.mockito.impl.matchers.Matchers;
 
-/**
+    /**
      * <h3>Main mocking entry point</h3>
      * <p>
      * You should start mocking by calling the prepareClasses(...) and providing all the classes to mock in given test case.
@@ -209,15 +206,11 @@ import org.mockito.impl.matchers.Matchers;
      * </listing>
      * </p>
      */
-    public class Mockito implements MethodSelector, MockCreator, SequenceNumberGenerator, SequenceNumberTracker, MockVerificable
+    public class Mockito implements MethodSelector, MockCreator, MockVerificable
     {
         private var mockCreator:MockCreator;
 
         private var mockInterceptor:MockInterceptor;
-
-        private var sequence:int = 0;
-
-        private var _sequenceNumber:int = -1;        
 
         public static var defaultProviderClass:Class = AsmockMockeryProvider;
 
@@ -227,7 +220,9 @@ import org.mockito.impl.matchers.Matchers;
         {
             super();
             instance = this;
-            var provider:MockeryProvider = mockeryProviderClass ? new mockeryProviderClass(this, this) : new defaultProviderClass(this, this);
+            var sequencer:Sequencer = new Sequencer();
+            var providerClass:Class = mockeryProviderClass || defaultProviderClass;
+            var provider:MockeryProvider = new providerClass(sequencer, sequencer);
             mockCreator = provider.getMockCreator();
             mockInterceptor = provider.getMockInterceptor();
         }
@@ -268,12 +263,10 @@ import org.mockito.impl.matchers.Matchers;
 
         /**
          * A starter function for verification of executions in order
-         * If you dont specify the verifier, an equivalent of times(1) is used.
-         * @param verifier object responsible for verification of the following execution
          */
-        public function inOrder():MockVerificable
+        public function inOrder():OrderedVerificable
         {
-            return new OrderedVerification(this);
+            return new InOrderVerificable(this);
         }
 
         /**
@@ -459,19 +452,30 @@ import org.mockito.impl.matchers.Matchers;
             return new CallOriginal();
         }
 
-        public function next():int
-        {
-            return sequence++;
-        }
+    }
+}
 
-        public function set sequenceNumber(sequenceNumber:int):void
-        {
-            _sequenceNumber = sequenceNumber;
-        }
+import org.mockito.api.SequenceNumberGenerator;
+import org.mockito.api.SequenceNumberTracker;
 
-        public function get sequenceNumber():int
-        {
-            return _sequenceNumber;
-        }
+class Sequencer implements SequenceNumberGenerator, SequenceNumberTracker
+{
+    private var sequence:int = 0;
+
+    private var _sequenceNumber:int = -1;
+
+    public function next():int
+    {
+        return sequence++;
+    }
+
+    public function set sequenceNumber(sequenceNumber:int):void
+    {
+        _sequenceNumber = sequenceNumber;
+    }
+
+    public function get sequenceNumber():int
+    {
+        return _sequenceNumber;
     }
 }
