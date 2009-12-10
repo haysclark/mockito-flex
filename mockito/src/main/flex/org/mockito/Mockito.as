@@ -230,9 +230,9 @@ import org.mockito.impl.matchers.Matchers;
         /**
          * @inheritedDoc
          */
-        public function prepareClasses(classes:Array, calledWhenClassesReady:Function):void
+        public function prepareClasses(classes:Array, calledWhenClassesReady:Function, calledWhenPreparingClassesFailed:Function=null):void
         {
-            return mockCreator.prepareClasses(classes, calledWhenClassesReady);
+            return mockCreator.prepareClasses(classes, calledWhenClassesReady, calledWhenPreparingClassesFailed);
         }
 
         /**

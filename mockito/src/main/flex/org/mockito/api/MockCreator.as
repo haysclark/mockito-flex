@@ -39,7 +39,8 @@ package org.mockito.api
          * Prepares given classes for mocking
          * @param classes an array of Class instances that should be prepared for mocking
          * @param calledWhenClassesReady an arugumentless function invoked when (async or not) process of classes generation is over
+         * @param calledWhenPreparingClassesFailed an argumentless function invoked when class preparation failed 
          */
-        function prepareClasses(classes:Array, calledWhenClassesReady:Function):void;
+        function prepareClasses(classes:Array, calledWhenClassesReady:Function, calledWhenPreparingClassesFailed:Function=null):void;
     }
 }
