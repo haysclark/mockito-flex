@@ -20,7 +20,7 @@
 
 package org.mockito.impl
 {
-import asmock.framework.proxy.IInvocation;
+import org.mockito.asmock.framework.proxy.IInvocation;
 
 import org.mockito.api.OriginalCallSeam;
 

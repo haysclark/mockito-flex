@@ -19,9 +19,11 @@
  */
 package org.mockito.impl
 {
-    import asmock.framework.MockRepository;
-    import asmock.framework.proxy.*;
-    import asmock.reflection.*;
+import flash.events.ErrorEvent;
+
+import org.mockito.asmock.framework.MockRepository;
+    import org.mockito.asmock.framework.proxy.*;
+    import org.mockito.asmock.reflection.*;
     
     import flash.events.Event;
     import flash.events.IEventDispatcher;
@@ -30,7 +32,7 @@ package org.mockito.impl
     import org.mockito.api.Invocation;
     import org.mockito.api.MockCreator;
     import org.mockito.api.MockInterceptor;
-    import asmock.framework.asmock_internal;
+    import org.mockito.asmock.framework.asmock_internal;
 
 import org.mockito.api.SequenceNumberGenerator;
 
@@ -69,14 +71,20 @@ use namespace asmock_internal;
                                       sequenceNumberGenerator.next());
         }
 
-        public function prepareClasses(classes:Array, calledWhenClassesReady:Function):void
+        public function prepareClasses(classes:Array, calledWhenClassesReady:Function, calledWhenPreparingClassesFailed:Function=null):void
         {
             var dispatcher:IEventDispatcher = super.prepare(classes);
             var repositoryPreparedHandler:Function = function (e:Event):void
             {
                 calledWhenClassesReady();
             };
+            var repositoryPreparationFailed:Function = function (e:Event):void
+            {
+                if (calledWhenPreparingClassesFailed != null)
+                    calledWhenPreparingClassesFailed();
+            };
             dispatcher.addEventListener(Event.COMPLETE, repositoryPreparedHandler);
+            dispatcher.addEventListener(ErrorEvent.ERROR, repositoryPreparationFailed);
         }
 
         public function mock(clazz:Class, name:String=null, constructorArgs:Array=null):*

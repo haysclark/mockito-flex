@@ -19,7 +19,7 @@
  */
 package org.mockito.impl.matchers
 {
-    import asmock.reflection.Type;
+    import org.mockito.asmock.reflection.Type;
     
 
     public class MatcherFunctions
