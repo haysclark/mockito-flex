@@ -8,8 +8,8 @@
      <![CDATA[
         import org.flexunit.listeners.UIListener;
         import org.flexunit.runner.FlexUnitCore;
-        import org.mockito.FlexUnit4Integration;
-        import org.mockito.MockAssignment;
+        import org.mockito.integrations.flexunit4.MockAssignment;
+        import org.mockito.integrations.flexunit4.MockingWithFlexUnit4;
         import org.mockito.integrations.flexunit4.MockitoClassRunner;
 
         private var core:FlexUnitCore = new FlexUnitCore();
@@ -17,7 +17,7 @@
         private function startupTests():void
         {
             core.addListener(new UIListener(uiListener));
-            core.run(MockAssignment);
+            core.run(MockAssignment, MockingWithFlexUnit4);
         }
 
         private var imports:Array = [MockitoClassRunner];

@@ -17,42 +17,17 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.mockito
+package org.mockito.integrations
 {
-import flexunit.framework.Assert;
-
-[RunWith("org.mockito.integrations.flexunit4.MockitoClassRunner")]
-public class MockAssignment
+/**
+ * Equality matcher<br />
+ * Example:<br /><br />
+ * <listing>
+ * verify(never()).that(system.login(eq("root")));
+ * </listing>
+ */
+public function eq(expected:Object):*
 {
-    [Mock(type="org.mockito.TestClass")]
-    public var mockie:TestClass;
- 
-    [Mock(type="org.mockito.MockieWithArgs", argsList="constructorArgs")]
-    public var mockieWithArgs:MockieWithArgs;
-
-    public var constructorArgs:Array = ["MyNameIs"];
-
-    public function MockAssignment()
-    {
-    }
-
-    [Test]
-    public function shouldAssignMockViaMetadata():void
-    {
-        Assert.assertNotNull("Did not assign mock", mockie);
-    }
-
-    [Test]
-    public function shouldPassArgumentsToConstructor():void
-    {
-        Assert.assertEquals("MyNameIs", mockieWithArgs.name);
-    }
-
-// Later
-//    public function shouldGuessMockTypeFromVariable():void
-//    {
-//        Assert.assertNotNull(guess);
-//    }
-
+    return currentMockito.eq(expected);
 }
 }

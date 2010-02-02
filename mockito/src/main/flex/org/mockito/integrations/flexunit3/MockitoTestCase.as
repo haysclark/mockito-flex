@@ -19,12 +19,12 @@
  */
 package org.mockito.integrations.flexunit3
 {
-import org.mockito.*;
 
 import flexunit.framework.TestCase;
 import flexunit.framework.TestResult;
 
-import org.mockito.api.*;
+import org.mockito.Mockito;
+import org.mockito.integrations.currentMockito;
 
     /**
      * Integration test case for the flexunit.
@@ -52,6 +52,7 @@ import org.mockito.api.*;
             if (mockito == null && _mockClasses)
             {
                 mockito = new Mockito();
+                currentMockito = mockito;
                 var superRunWithResult:Function = super.runWithResult;
                 mockito.prepareClasses(_mockClasses, repositoryPreparedHandler);
                 function repositoryPreparedHandler():void
@@ -64,7 +65,5 @@ import org.mockito.api.*;
                 super.runWithResult(result);
             }
         }
-
-        include "../../Integration.include"
     }
 }

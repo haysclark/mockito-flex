@@ -6,7 +6,7 @@ import org.flexunit.runners.BlockFlexUnit4ClassRunner;
 import org.flexunit.runners.model.FrameworkMethod;
 import org.mockito.Mockito;
 import org.mockito.api.MockCreator;
-import org.mockito.asmock.framework.MockRepository;
+import org.mockito.integrations.currentMockito;
 
 public class MockitoClassRunner extends BlockFlexUnit4ClassRunner
 {
@@ -17,7 +17,8 @@ public class MockitoClassRunner extends BlockFlexUnit4ClassRunner
     {
         super(testClass);
         _testClass = testClass;
-        _mockito = new Mockito();
+        currentMockito = new Mockito();
+        _mockito = currentMockito;
     }
 
     protected override function withBefores(method:FrameworkMethod, target:Object):IAsyncStatement
