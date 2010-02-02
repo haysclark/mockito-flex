@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+                minWidth="1024" minHeight="768"
+                xmlns:flexUnitUIRunner="http://www.adobe.com/2009/flexUnitUIRunner"
+                xmlns:flexunit="flexunit.flexui.*"
+                xmlns:flexunitRunner="org.flexunit.runner.*" creationComplete="startupTests()">
+    <mx:Script>
+     <![CDATA[
+        import org.flexunit.listeners.UIListener;
+        import org.flexunit.runner.FlexUnitCore;
+        import org.mockito.FlexUnit4Integration;
+        import org.mockito.MockAssignment;
+        import org.mockito.integrations.flexunit4.MockitoClassRunner;
+
+        private var core:FlexUnitCore = new FlexUnitCore();
+
+        private function startupTests():void
+        {
+            core.addListener(new UIListener(uiListener));
+            core.run(MockAssignment);
+        }
+
+        private var imports:Array = [MockitoClassRunner];
+     ]]>
+    </mx:Script>
+
+    <flexUnitUIRunner:TestRunnerBase id="uiListener" width="100%" height="100%"/>
+</mx:Application>
+
