@@ -1,8 +1,8 @@
 package org.mockito
 {
     import org.mockito.impl.ActualNumberOfInvocationsIsDifferent;
-import org.mockito.impl.InvocationsNotInOrder;
-import org.mockito.impl.NeverWantedButInvoked;
+    import org.mockito.impl.InvocationsNotInOrder;
+    import org.mockito.impl.NeverWantedButInvoked;
     import org.mockito.impl.WantedButNotInvoked;
 
     public class TestVerification extends MockitoTestCase
