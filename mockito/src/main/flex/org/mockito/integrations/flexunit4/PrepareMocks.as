@@ -29,7 +29,7 @@ public class PrepareMocks extends AsyncStatementBase implements IAsyncStatement
 
         try
         {
-            mockInitializers = MockitoMetadataTools.getMockInitializers(_testClass);
+            mockInitializers = MockitoMetadataTools.getMockInitializers(_testClass, true);
         }
         catch(error:Error)
         {
@@ -41,7 +41,6 @@ public class PrepareMocks extends AsyncStatementBase implements IAsyncStatement
 
         function repositoryPreparedHandler():void
         {
-            assignMocks(mockInitializers);
             parentToken.sendResult(null);
         }
 
@@ -59,14 +58,6 @@ public class PrepareMocks extends AsyncStatementBase implements IAsyncStatement
             res.push(initializer.type);
         }
         return res;
-    }
-
-    protected function assignMocks(initializers:Array):void
-    {
-        for each (var initializer:Object in initializers)
-        {
-
-        }
     }
 }
 }

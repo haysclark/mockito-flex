@@ -9,6 +9,7 @@
         import org.flexunit.listeners.UIListener;
         import org.flexunit.runner.FlexUnitCore;
         import org.mockito.integrations.flexunit4.MockAssignment;
+        import org.mockito.integrations.flexunit4.MockPreparationWoAssignment;
         import org.mockito.integrations.flexunit4.MockingWithFlexUnit4;
         import org.mockito.integrations.flexunit4.MockitoClassRunner;
 
@@ -17,7 +18,7 @@
         private function startupTests():void
         {
             core.addListener(new UIListener(uiListener));
-            core.run(MockAssignment, MockingWithFlexUnit4);
+            core.run(MockAssignment, MockingWithFlexUnit4, MockPreparationWoAssignment);
         }
 
         private var imports:Array = [MockitoClassRunner];

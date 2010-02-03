@@ -22,7 +22,9 @@ public class MockitoMetadataTools
     public static function hasMockClasses(testClass:Class):Boolean
     {
         var klass:Klass = new Klass(testClass);
-
+        var array:Array = getArgValuesFromMetaDataNode(klass.metadata, MOCK_METADATA, MOCK_METADATA_TYPE_KEY);
+        if (array.length > 0)
+            return true;
         for each(var field:Field in klass.fields)
         {
             if (field.hasMetaData(MOCK_METADATA))
@@ -34,10 +36,19 @@ public class MockitoMetadataTools
         return false;
     }
 
-    public static function getMockInitializers(testClass:Class):Array
+    public static function getMockInitializers(testClass:Class, includeClassMetadata:Boolean=false):Array
     {
         var mockInitializers:Array = [];
         var klass:Klass = new Klass(testClass);
+        if (includeClassMetadata)
+        {
+            var array:Array = getArgValuesFromMetaDataNode(klass.metadata, MOCK_METADATA, MOCK_METADATA_TYPE_KEY);
+            for each (var type:String in array)
+            {
+                mockInitializers.push({type: mapClass(type)});
+            }
+
+        }
         for each(var field:Field in klass.fields)
         {
             if (!field.hasMetaData(MOCK_METADATA))
