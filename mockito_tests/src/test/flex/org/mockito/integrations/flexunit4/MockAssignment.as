@@ -36,6 +36,9 @@ public class MockAssignment
 
     public var constructorArgs:Array = ["MyNameIs"];
 
+    [Mock]
+    public var guess:TestClass;
+
     public function MockAssignment()
     {
     }
@@ -53,10 +56,10 @@ public class MockAssignment
     }
 
 // Later
-//    public function shouldGuessMockTypeFromVariable():void
-//    {
-//        assertThat(guess, notNullValue());
-//    }
-
+    [Test]
+    public function shouldGuessMockTypeFromVariable():void
+    {
+        assertThat(guess, notNullValue());
+    }
 }
 }
