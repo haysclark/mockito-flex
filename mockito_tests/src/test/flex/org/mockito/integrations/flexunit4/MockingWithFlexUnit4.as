@@ -1,10 +1,3 @@
-/*
- * @(#)MockingWithFlexUnit4
- *
- * Copyright (c) 2009 Sabre, Inc. All rights reserved.
- *
- * @author Krzysztof Karczmarczyk
- */
 package org.mockito.integrations.flexunit4
 {
 import org.mockito.TestClass;
