@@ -57,8 +57,7 @@ public class MockitoMetadataTools
             var mockClassName:String = field.getMetaData(MOCK_METADATA, MOCK_METADATA_TYPE_KEY);
             if (!mockClassName)
             {
-                // mockClass = field.type;
-                throw new Error("Please provide mock class name [Mock(type='class.to.mock.Name')]");
+                mockClass = field.type;
             }
             else
             {
