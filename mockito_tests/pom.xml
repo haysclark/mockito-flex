@@ -75,8 +75,8 @@
         <dependency>
             <groupId>flexunit</groupId>
             <artifactId>flexunit4</artifactId>
-            <version>4</version>
-            <type>swc</type>
+			<version>4-rc1</version>            
+			<type>swc</type>
         </dependency>
         <dependency>
             <groupId>org.sonatype.flexmojos</groupId>
