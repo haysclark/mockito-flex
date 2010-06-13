@@ -3,11 +3,12 @@
   <component name="Flex.Build.Configuration">
     <option name="DO_BUILD" value="true" />
     <option name="OUTPUT_TYPE" value="Library" />
-    <option name="APPLICATION_ENTRY_POINT" value="mockito/src/main/flex/HelloWorld.mxml" />
+    <option name="MAIN_CLASS" value="HelloWorld" />
     <option name="OUTPUT_FILE_NAME" value="mockito.swc" />
+    <option name="TARGET_PLAYER_VERSION" value="9.0.124" />
     <option name="STATIC_LINK_RUNTIME_SHARED_LIBRARIES" value="false" />
     <option name="ADDITIONAL_COMPILER_OPTIONS" value="-keep-as3-metadata Mock" />
-    <option name="VERSION" value="2" />
+    <option name="VERSION" value="3" />
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../out/production" />
