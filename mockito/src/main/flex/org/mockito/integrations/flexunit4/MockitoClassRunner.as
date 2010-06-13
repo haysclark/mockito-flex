@@ -11,20 +11,17 @@ import org.mockito.integrations.currentMockito;
 public class MockitoClassRunner extends BlockFlexUnit4ClassRunner
 {
     private var _testClass:Class;
-    private var _mockito:MockCreator;
 
     public function MockitoClassRunner(testClass:Class)
     {
         super(testClass);
         _testClass = testClass;
-        currentMockito = new Mockito();
-        _mockito = currentMockito;
     }
 
     protected override function withBefores(method:FrameworkMethod, target:Object):IAsyncStatement
     {
         var sequencer:StatementSequencer = new StatementSequencer();
-
+        currentMockito = new Mockito();
         sequencer.addStep(withMocksAssignment(_testClass, target));
         sequencer.addStep(super.withBefores(method, target));
 
@@ -33,7 +30,7 @@ public class MockitoClassRunner extends BlockFlexUnit4ClassRunner
 
     private function withMocksAssignment(testClass:Class, target:Object):IAsyncStatement
     {
-        return new AssignMocks(_mockito, testClass, target);
+        return new AssignMocks(currentMockito, testClass, target);
     }
 
     protected override function withBeforeClasses():IAsyncStatement
@@ -48,7 +45,7 @@ public class MockitoClassRunner extends BlockFlexUnit4ClassRunner
 
     protected function withMocksPreparation(testClass:Class):IAsyncStatement
     {
-        return new PrepareMocks(_mockito, testClass);
+        return new PrepareMocks(new Mockito(), testClass);
     }
 }
 }
