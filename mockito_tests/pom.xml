@@ -75,7 +75,7 @@
         <dependency>
             <groupId>flexunit</groupId>
             <artifactId>flexunit4</artifactId>
-			<version>4-rc1</version>            
+			<version>4.1</version>            
 			<type>swc</type>
         </dependency>
         <dependency>
