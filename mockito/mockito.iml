@@ -21,17 +21,13 @@
     <orderEntry type="module-library">
       <library name="libs">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/debugger-0.2alpha2.swc!/" />
-          <root url="jar://$MODULE_DIR$/libs/flexunit-0.85.swc!/" />
-          <root url="jar://$MODULE_DIR$/libs/asunit-20071011.swc!/" />
-          <root url="jar://$MODULE_DIR$/libs/flexunit-optional-0.85.swc!/" />
-          <root url="jar://$MODULE_DIR$/libs/FUnit.swc!/" />
-          <root url="jar://$MODULE_DIR$/libs/FlexUnit4.swc!/" />
+          <root url="file://$MODULE_DIR$/libs" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
           <root url="file://$MODULE_DIR$/../../FUnit/Framework/main/source" />
         </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/libs" recursive="false" />
       </library>
     </orderEntry>
   </component>

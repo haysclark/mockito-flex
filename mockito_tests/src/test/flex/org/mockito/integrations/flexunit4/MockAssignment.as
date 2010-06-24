@@ -19,13 +19,13 @@
  */
 package org.mockito.integrations.flexunit4
 {
+import org.flexunit.rules.IMethodRule;
 import org.mockito.*;
 
 import org.hamcrest.assertThat;
 import org.hamcrest.object.equalTo;
 import org.hamcrest.object.notNullValue;
 
-[RunWith("org.mockito.integrations.flexunit4.MockitoClassRunner")]
 public class MockAssignment
 {
     [Mock(type="org.mockito.TestClass")]
@@ -33,6 +33,9 @@ public class MockAssignment
  
     [Mock(type="org.mockito.MockieWithArgs", argsList="constructorArgs")]
     public var mockieWithArgs:MockieWithArgs;
+
+    [Rule]
+    public var mockitoRule:IMethodRule = new MockitoRule();
 
     public var constructorArgs:Array = ["MyNameIs"];
 

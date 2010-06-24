@@ -5,7 +5,6 @@ import org.flexunit.internals.runners.statements.StatementSequencer;
 import org.flexunit.runners.BlockFlexUnit4ClassRunner;
 import org.flexunit.runners.model.FrameworkMethod;
 import org.mockito.Mockito;
-import org.mockito.api.MockCreator;
 import org.mockito.integrations.currentMockito;
 
 public class MockitoClassRunner extends BlockFlexUnit4ClassRunner
@@ -18,12 +17,12 @@ public class MockitoClassRunner extends BlockFlexUnit4ClassRunner
         _testClass = testClass;
     }
 
-    protected override function withBefores(method:FrameworkMethod, target:Object):IAsyncStatement
+    protected override function withBefores(method:FrameworkMethod, target:Object, statement:IAsyncStatement):IAsyncStatement
     {
         var sequencer:StatementSequencer = new StatementSequencer();
         currentMockito = new Mockito();
         sequencer.addStep(withMocksAssignment(_testClass, target));
-        sequencer.addStep(super.withBefores(method, target));
+        sequencer.addStep(super.withBefores(method, target, statement));
 
         return sequencer;
     }
