@@ -19,39 +19,38 @@
  */
 package org.mockito.impl.matchers
 {
-    import org.mockito.asmock.reflection.Type;
-    
+import org.flemit.reflection.Type;
 
-    public class MatcherFunctions
+public class MatcherFunctions
+{
+
+    public function MatcherFunctions()
     {
-
-        public function MatcherFunctions()
-        {
-        }
-
-        public static function isNotANumber(expected:*, actual:*):Boolean
-        {
-            return isNaN(actual);
-        }
-
-        public static function anyFunction(expected:*, actual:*):Boolean
-        {
-            return true;
-        }
-
-        public static function eqFunction(expected:*, actual:*):Boolean
-        {
-            return expected == actual;
-        }
-
-        public static function actualNotNull(expected:*, actual:*):Boolean
-        {
-            return actual != null;
-        }
-
-        public static function matchClassesFunction(expected:*, actual:*):Boolean
-        {
-            return expected == Type.getType(actual).classDefinition;
-        }
     }
+
+    public static function isNotANumber(expected:*, actual:*):Boolean
+    {
+        return isNaN(actual);
+    }
+
+    public static function anyFunction(expected:*, actual:*):Boolean
+    {
+        return true;
+    }
+
+    public static function eqFunction(expected:*, actual:*):Boolean
+    {
+        return expected == actual;
+    }
+
+    public static function actualNotNull(expected:*, actual:*):Boolean
+    {
+        return actual != null;
+    }
+
+    public static function matchClassesFunction(expected:*, actual:*):Boolean
+    {
+        return expected == Type.getType(actual).classDefinition;
+    }
+}
 }

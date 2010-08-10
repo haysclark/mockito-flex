@@ -19,20 +19,22 @@
  */
 package org.mockito.impl
 {
+import asmock.framework.MockRepository;
+
+import asmock.framework.asmock_internal;
+
 import flash.events.ErrorEvent;
 
-import org.mockito.asmock.framework.MockRepository;
-    import org.mockito.asmock.framework.proxy.*;
-    import org.mockito.asmock.reflection.*;
-    
     import flash.events.Event;
     import flash.events.IEventDispatcher;
     import flash.utils.Dictionary;
-    
-    import org.mockito.api.Invocation;
+
+import org.flemit.reflection.MethodInfo;
+import org.flemit.reflection.Type;
+import org.floxy.IInvocation;
+import org.mockito.api.Invocation;
     import org.mockito.api.MockCreator;
     import org.mockito.api.MockInterceptor;
-    import org.mockito.asmock.framework.asmock_internal;
 
 import org.mockito.api.SequenceNumberGenerator;
 
