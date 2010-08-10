@@ -1,9 +1,10 @@
 package org.mockito
 {
-import org.flexunit.Assert;
+import org.mockito.integrations.flexunit4.MockitoClassRunner; MockitoClassRunner;
 
 public class FlexUnit4Integration
 {
+
     public var test1:FlexUnit4Integration;
 
     [Suite]

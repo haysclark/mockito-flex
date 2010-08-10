@@ -9,6 +9,7 @@ package org.mockito.impl
         
         public function MockMockInterceptor()
         {
+            super(null);
         }
 
         override public function methodCalled(invocation:Invocation):*
