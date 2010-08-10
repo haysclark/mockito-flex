@@ -12,7 +12,7 @@
     <name>.Unit tests for Mocktio</name>
     <build>
         <sourceDirectory>src/main/flex</sourceDirectory>
-        <testSourceDirectory>src/test/flex</testSourceDirectory>
+        <testSourceDirectory>../mockito/src/test/flex</testSourceDirectory>
         <defaultGoal>install</defaultGoal>
 
         <plugins>
