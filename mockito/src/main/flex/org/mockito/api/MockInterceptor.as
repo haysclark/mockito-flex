@@ -52,5 +52,12 @@ package org.mockito.api
          * @see org.mockito.api.Matcher
          */
         function addMatcher(matcher:Matcher):void
+
+        /**
+         * Returns Invocations collection for the given mock object
+         * @param mock mock object in question
+         * @return an Invocations collection
+         */
+        function getInvocationsFor(mock:Object):Invocations
     }
 }
