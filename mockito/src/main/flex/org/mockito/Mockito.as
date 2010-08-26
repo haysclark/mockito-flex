@@ -453,6 +453,10 @@ import org.mockito.impl.matchers.Matchers;
             return new CallOriginal();
         }
 
+        public function get expertsMockInterceptor():MockInterceptor
+        {
+            return mockInterceptor;
+        }
     }
 }
 
@@ -464,6 +468,10 @@ class Sequencer implements SequenceNumberGenerator, SequenceNumberTracker
     private var sequence:int = 0;
 
     private var _sequenceNumber:int = -1;
+
+    public function Sequencer()
+    {
+    }
 
     public function next():int
     {

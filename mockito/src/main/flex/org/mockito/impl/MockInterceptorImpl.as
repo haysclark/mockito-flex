@@ -57,7 +57,7 @@ package org.mockito.impl
             {
                 try
                 {
-                    var invocations:Invocations = getInvocationFor(invocation.target);
+                    var invocations:Invocations = getInvocationsFor(invocation.target);
                     verifier.verify(invocation, invocations);
                     return null;
                 }
@@ -73,12 +73,12 @@ package org.mockito.impl
                 rememberInvocation(invocation);
             }
 
-            return getInvocationFor(invocation.target).answerFor(invocation);
+            return getInvocationsFor(invocation.target).answerFor(invocation);
         }
 
         public function rememberInvocation(invocation:Invocation):void
         {
-            var invocations:Invocations = getInvocationFor(invocation.target);
+            var invocations:Invocations = getInvocationsFor(invocation.target);
             invocations.addInvocation(invocation);
             latestInvocation = invocation;
         }
@@ -90,20 +90,20 @@ package org.mockito.impl
             latestInvocation.addAnswer(answer);
         }
 
-        protected function getInvocationFor(target:Object):Invocations
+        public function getInvocationsFor(mock:Object):Invocations
         {
-            var invocations:Invocations = invocationsMap[target];
+            var invocations:Invocations = invocationsMap[mock];
             if (!invocations)
             {
                 invocations = new InvocationsImpl(sequenceNumberTracker);
-                invocationsMap[target] = invocations;
+                invocationsMap[mock] = invocations;
             }
             return invocations;
         }
 
         public function getInvocations(mock:Object):ArrayCollection
         {
-            return getInvocationFor(mock).getEncounteredInvocations();
+            return getInvocationsFor(mock).getEncounteredInvocations();
         }
 
         public function set verifier(value:Verifier):void
