@@ -21,6 +21,7 @@
 package org.mockito
 {
 import org.mockito.api.Answer;
+import org.mockito.api.stubbing.ArgumentSpecifier;
 import org.mockito.api.Matcher;
 import org.mockito.api.MethodSelector;
 import org.mockito.api.MockCreator;
@@ -30,6 +31,7 @@ import org.mockito.api.MockeryProvider;
 import org.mockito.api.OrderedVerificable;
 import org.mockito.api.Stubber;
 import org.mockito.api.Verifier;
+import org.mockito.impl.ArgumentRelatedAnswerImpl;
 import org.mockito.impl.AsmockMockeryProvider;
 import org.mockito.impl.AtLeast;
 import org.mockito.impl.Between;
@@ -456,6 +458,35 @@ import org.mockito.impl.matchers.Matchers;
         public function get expertsMockInterceptor():MockInterceptor
         {
             return mockInterceptor;
+        }
+
+        /**
+         * This function gives access to the arguments passed on the stubbed function
+         * For instance if you need to stub a function call that takes a callback
+         * function, and in mock response you want to still call the callback with
+         * some arguments, you can use this function to build the stub behavior
+         * Example:
+         * <listing>
+         *
+         * class Service
+         * {
+         *    public function loginService(resultFunction:Function):void
+         *    {
+         *     ...
+         *    }
+         * }
+         *
+         * given(service.loginService(any())).will(useArgument(0).asFunctionAndCall());
+         * </listing>
+         *
+         * Above stub definition will call any function passed to the loginService() without
+         * any arguments
+         * @param index index of the argument (zero based)
+         * @return
+         */
+        public function useArgument(index:int):ArgumentSpecifier
+        {
+            return new ArgumentRelatedAnswerImpl().useArgument(index);
         }
     }
 }

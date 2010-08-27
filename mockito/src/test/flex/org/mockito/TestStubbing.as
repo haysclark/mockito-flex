@@ -3,10 +3,12 @@ package org.mockito
 import org.mockito.impl.GenericAnswer;
 import org.mockito.impl.MissingMethodCallToStub;
 import org.mockito.impl.WantedButNotInvoked;
+import org.mockito.integrations.useArgument;
 
 public class TestStubbing extends MockitoTestCase
 {
     private var mockie:TestClass;
+    private var counter:int;
 
     override public function setUp():void
     {
@@ -41,10 +43,8 @@ public class TestStubbing extends MockitoTestCase
         }
     }
 
-    private var counter:int;
-
     public function testWillStubWithGenericAnswer():void
-{
+    {
         // given
         assertEquals(0, counter);
         given(mockie.foo()).will(new GenericAnswer(incrementCounter));
@@ -119,6 +119,75 @@ public class TestStubbing extends MockitoTestCase
         mockie.bindableProperty = "some new value";
 
         assertEquals("some new value", mockie.bindableProperty);
+    }
+
+    public function testWillAllowCallingArgumentsAsFunctions():void
+    {
+        // given
+        given(mockie.asyncWithCallback(any())).will(useArgument(0).asFunctionAndCall());
+        // when
+        mockie.asyncWithCallback(callbackFunction);
+        // then
+        assertEquals(1, counter);
+    }
+
+    public function testWillAllowCallingComplexArgumentsAsFunctions():void
+    {
+        // given
+
+        var complexCallback:Object = new Object();
+        complexCallback.callbackFunction = callbackFunction;
+
+        given(mockie.asyncWithComplexCallback(any())).will(useArgument(0).method("callbackFunction").andCall());
+        // when
+        mockie.asyncWithComplexCallback(complexCallback);
+        // then
+        assertEquals(1, counter);
+    }
+
+    public function testWillAllowAssigningComplexArgumentsProperties():void
+    {
+        // given
+
+        var complexCallback:Object = new Object();
+        given(mockie.asyncWithComplexCallback(any())).will(useArgument(0).property("propertyToSet").andAssign("newValue"));
+        // when
+        mockie.asyncWithComplexCallback(complexCallback);
+        // then
+        assertEquals("newValue", complexCallback.propertyToSet);
+    }
+
+    public function testWillAllowCallbackActionsAndReturnValue():void
+    {
+        // given
+
+        var complexCallback:Object = new Object();
+        given(mockie.asyncWithComplexCallback(any())).will(useArgument(0).property("propertyToSet").andAssign("newValue").and().finallyReturnValue("returnValue"));
+        // when
+        var result:* = mockie.asyncWithComplexCallback(complexCallback);
+        // then
+        assertEquals("newValue", complexCallback.propertyToSet);
+        assertEquals("returnValue", result);
+    }
+
+    public function testWillAllowMultipleActionsOnCallbackObject():void
+    {
+        // given
+
+        var complexCallback:Object = new Object();
+        complexCallback.callback = callbackFunction;
+        given(mockie.asyncWithComplexCallback(any())).will(useArgument(0).property("propertyToSet").andAssign("newValue")
+                                                                .and().useArgument(0).method("callback").andCall());
+        // when
+        mockie.asyncWithComplexCallback(complexCallback);
+        // then
+        assertEquals("newValue", complexCallback.propertyToSet);
+        assertEquals(1, counter);
+    }
+
+    public function callbackFunction():void
+    {
+        counter++;
     }
 }
 }
