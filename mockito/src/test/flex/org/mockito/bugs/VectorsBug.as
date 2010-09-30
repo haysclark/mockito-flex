@@ -1,8 +1,8 @@
 package org.mockito.bugs
 {
-public class TestVector
+public class VectorsBug
 {
-    public function TestVector()
+    public function VectorsBug()
     {
     }
 

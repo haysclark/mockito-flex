@@ -1,27 +1,32 @@
 package org.mockito
 {
+import org.flexunit.asserts.assertEquals;
+import org.flexunit.asserts.assertNull;
+import org.flexunit.asserts.assertTrue;
+import org.flexunit.asserts.fail;
+import org.flexunit.rules.IMethodRule;
 import org.mockito.impl.GenericAnswer;
 import org.mockito.impl.MissingMethodCallToStub;
 import org.mockito.impl.WantedButNotInvoked;
-import org.mockito.integrations.useArgument;
+import org.mockito.integrations.*;
+import org.mockito.integrations.flexunit4.MockitoRule;
 
-public class TestStubbing extends MockitoTestCase
+public class TestStubbing
 {
-    private var mockie:TestClass;
+    [Mock(type="org.mockito.MockieClass")]
+    public var mockie:MockieClass;
     private var counter:int;
     private var latestArgs:Array;
 
-    override public function setUp():void
-    {
-        super.setUp();
-        mockie = TestClass(mock(TestClass));
-    }
+    [Rule]
+    public var mockitoRule:IMethodRule = new MockitoRule();
+
 
     public function TestStubbing()
     {
-        super([TestClass]);
     }
 
+    [Test]
     public function testWillStubAMethodCall():void
     {
         // when
@@ -30,20 +35,25 @@ public class TestStubbing extends MockitoTestCase
         assertEquals("10", mockie.foo(10));
     }
 
+    [Test]
     public function testWillStubWithThrowable():void
     {
         // given
         given(mockie.foo(10)).willThrow(new Error("oups"));
-        try {
+        try
+        {
             // when
             mockie.foo(10);
             fail();
             //then
-        } catch (e:Error) {
+        }
+        catch (e:Error)
+        {
             assertEquals("oups", e.message);
         }
     }
 
+    [Test]
     public function testWillStubWithGenericAnswer():void
     {
         // given
@@ -57,39 +67,50 @@ public class TestStubbing extends MockitoTestCase
         assertEquals(1, counter);
     }
 
-    private function incrementCounter():void {
-                          counter++;
+    private function incrementCounter():void
+    {
+        counter++;
     }
 
+    [Test]
     public function testWillReturnDefaultEmptyValueWhenNotStubbed():void
     {
         assertEquals(null, mockie.foo(10));
     }
 
+    [Test]
     public function testWillRemindUserThatHeNeedsAMethodCallToStub():void
     {
-        try {
+        try
+        {
             //when
             given("").willReturn("10");
             fail();
             //then
-        } catch(e:MissingMethodCallToStub) {
+        }
+        catch(e:MissingMethodCallToStub)
+        {
         }
     }
 
+    [Test]
     public function testWillNotVerifyAStubbedCall():void
     {
         //given
         given(mockie.foo(10)).willReturn("10");
-        try {
+        try
+        {
             // when
             verify().that(mockie.foo(10));
             fail();
             // then
-        } catch(e:WantedButNotInvoked) {
+        }
+        catch(e:WantedButNotInvoked)
+        {
         }
     }
 
+    [Test]
     public function testWillStubAMethodCallWithAnyMatcher():void
     {
         // when
@@ -101,6 +122,7 @@ public class TestStubbing extends MockitoTestCase
         //            assertEquals("10", mock.foo());
     }
 
+    [Test]
     public function testWillCallOriginalFunction():void
     {
         // given
@@ -112,6 +134,7 @@ public class TestStubbing extends MockitoTestCase
         assertEquals("a parameter to be stored in a field", mockie.storedParameter);
     }
 
+    [Test]
     public function testWillAllowSettingPublicVariablesMarkedAsBindable():void
     {
         given(mockie.bindableProperty = any()).will(callOriginal());
@@ -122,6 +145,7 @@ public class TestStubbing extends MockitoTestCase
         assertEquals("some new value", mockie.bindableProperty);
     }
 
+    [Test]
     public function testWillAllowCallingArgumentsAsFunctions():void
     {
         // given
@@ -132,6 +156,7 @@ public class TestStubbing extends MockitoTestCase
         assertEquals(1, counter);
     }
 
+    [Test]
     public function testWillAllowCallingArgumentsAsFunctionsWithArgs():void
     {
         // given
@@ -144,6 +169,7 @@ public class TestStubbing extends MockitoTestCase
         assertTrue(latestArgs.indexOf(arg) == 0);
     }
 
+    [Test]
     public function testWillAllowCallingComplexArgumentsAsFunctions():void
     {
         // given
@@ -158,6 +184,7 @@ public class TestStubbing extends MockitoTestCase
         assertEquals(1, counter);
     }
 
+    [Test]
     public function testWillAllowCallingComplexArgumentsAsFunctionsWithArgs():void
     {
         // given
@@ -173,6 +200,7 @@ public class TestStubbing extends MockitoTestCase
         assertTrue(latestArgs.indexOf(arg) == 0);
     }
 
+    [Test]
     public function testWillAllowAssigningComplexArgumentsProperties():void
     {
         // given
@@ -185,6 +213,7 @@ public class TestStubbing extends MockitoTestCase
         assertEquals("newValue", complexCallback.propertyToSet);
     }
 
+    [Test]
     public function testWillAllowCallbackActionsAndReturnValue():void
     {
         // given
@@ -198,6 +227,7 @@ public class TestStubbing extends MockitoTestCase
         assertEquals("returnValue", result);
     }
 
+    [Test]
     public function testWillAllowMultipleActionsOnCallbackObject():void
     {
         // given
@@ -205,7 +235,7 @@ public class TestStubbing extends MockitoTestCase
         var complexCallback:Object = new Object();
         complexCallback.callback = callbackFunction;
         given(mockie.asyncWithComplexCallback(any())).will(useArgument(0).property("propertyToSet").andAssign("newValue")
-                                                                .and().useArgument(0).method("callback").andCall());
+                .and().useArgument(0).method("callback").andCall());
         // when
         mockie.asyncWithComplexCallback(complexCallback);
         // then

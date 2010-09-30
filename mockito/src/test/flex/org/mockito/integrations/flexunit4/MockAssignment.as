@@ -28,8 +28,8 @@ import org.hamcrest.object.notNullValue;
 
 public class MockAssignment
 {
-    [Mock(type="org.mockito.TestClass")]
-    public var mockie:TestClass;
+    [Mock(type="org.mockito.MockieClass")]
+    public var mockie:MockieClass;
  
     [Mock(type="org.mockito.MockieWithArgs", argsList="constructorArgs")]
     public var mockieWithArgs:MockieWithArgs;
@@ -40,7 +40,7 @@ public class MockAssignment
     public var constructorArgs:Array = ["MyNameIs"];
 
     [Mock]
-    public var guess:TestClass;
+    public var guess:MockieClass;
 
     public function MockAssignment()
     {

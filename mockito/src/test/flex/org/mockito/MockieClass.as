@@ -3,9 +3,9 @@ package org.mockito
 import mx.events.ResizeEvent;
 import mx.rpc.IResponder;
 
-public class TestClass
+public class MockieClass
 {
-    public function TestClass()
+    public function MockieClass()
     {
     }
 

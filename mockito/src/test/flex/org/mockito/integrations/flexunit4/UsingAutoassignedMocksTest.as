@@ -1,21 +1,21 @@
 package org.mockito.integrations.flexunit4
 {
 import org.flexunit.rules.IMethodRule;
-import org.mockito.TestClass;
+import org.mockito.MockieClass;
 import org.mockito.integrations.verify;
 
-public class UsingAutoassignedMocks
+public class UsingAutoassignedMocksTest
 {
-    [Mock(type="org.mockito.TestClass")]
-    public var mockie:TestClass;
+    [Mock(type="org.mockito.MockieClass")]
+    public var mockie:MockieClass;
 
-    [Mock(type="org.mockito.TestClass")]
-    public var mockie2:TestClass;
+    [Mock(type="org.mockito.MockieClass")]
+    public var mockie2:MockieClass;
 
     [Rule]
     public var mockitoRule:IMethodRule = new MockitoRule();
     
-    public function UsingAutoassignedMocks()
+    public function UsingAutoassignedMocksTest()
     {
     }
 
