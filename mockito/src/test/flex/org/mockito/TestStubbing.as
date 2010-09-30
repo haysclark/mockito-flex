@@ -9,6 +9,7 @@ public class TestStubbing extends MockitoTestCase
 {
     private var mockie:TestClass;
     private var counter:int;
+    private var latestArgs:Array;
 
     override public function setUp():void
     {
@@ -131,6 +132,18 @@ public class TestStubbing extends MockitoTestCase
         assertEquals(1, counter);
     }
 
+    public function testWillAllowCallingArgumentsAsFunctionsWithArgs():void
+    {
+        // given
+        var arg:Object = {};
+        given(mockie.asyncWithCallback(any())).will(useArgument(0).asFunctionAndCall(arg));
+        // when
+        mockie.asyncWithCallback(callbackFunction);
+        // then
+        assertEquals(1, counter);
+        assertTrue(latestArgs.indexOf(arg) == 0);
+    }
+
     public function testWillAllowCallingComplexArgumentsAsFunctions():void
     {
         // given
@@ -143,6 +156,21 @@ public class TestStubbing extends MockitoTestCase
         mockie.asyncWithComplexCallback(complexCallback);
         // then
         assertEquals(1, counter);
+    }
+
+    public function testWillAllowCallingComplexArgumentsAsFunctionsWithArgs():void
+    {
+        // given
+        var arg:Object = {};
+        var complexCallback:Object = new Object();
+        complexCallback.callbackFunction = callbackFunction;
+
+        given(mockie.asyncWithComplexCallback(any())).will(useArgument(0).method("callbackFunction").andCallWithArgs(arg));
+        // when
+        mockie.asyncWithComplexCallback(complexCallback);
+        // then
+        assertEquals(1, counter);
+        assertTrue(latestArgs.indexOf(arg) == 0);
     }
 
     public function testWillAllowAssigningComplexArgumentsProperties():void
@@ -185,9 +213,10 @@ public class TestStubbing extends MockitoTestCase
         assertEquals(1, counter);
     }
 
-    public function callbackFunction():void
+    public function callbackFunction(...args):void
     {
         counter++;
+        latestArgs = args;
     }
 }
 }

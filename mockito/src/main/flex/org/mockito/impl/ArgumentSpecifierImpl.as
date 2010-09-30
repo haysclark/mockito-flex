@@ -41,7 +41,7 @@ public class ArgumentSpecifierImpl implements ArgumentSpecifier, ArgumentActionD
 
     public function asFunctionAndCall(...args):ArgumentRelatedAnswer
     {
-        method(null);
+        method(null).andCallWithArgs.apply(null, args);
         return answer;
     }
 
