@@ -10,6 +10,8 @@ import org.mockito.integrations.mock;
 [RunWith("org.mockito.integrations.flexunit4.MockitoClassRunner")]
 public class MockPreparationWoAssignmentTest
 {
+    var runner:MockitoClassRunner;
+    
     public function MockPreparationWoAssignmentTest()
     {
     }
