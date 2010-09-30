@@ -8,9 +8,9 @@ import org.mockito.integrations.mock;
 [Mock(type="org.mockito.integrations.flexunit4.NewNonPreparedMock2")]
 
 [RunWith("org.mockito.integrations.flexunit4.MockitoClassRunner")]
-public class MockPreparationWoAssignment
+public class MockPreparationWoAssignmentTest
 {
-    public function MockPreparationWoAssignment()
+    public function MockPreparationWoAssignmentTest()
     {
     }
 
