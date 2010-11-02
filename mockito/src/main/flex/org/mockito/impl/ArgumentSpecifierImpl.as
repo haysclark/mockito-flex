@@ -19,19 +19,20 @@
  */
 package org.mockito.impl
 {
+import org.mockito.api.StubbingContext;
 import org.mockito.api.stubbing.ArgumentAction;
 import org.mockito.api.stubbing.ArgumentActionDefinition;
 import org.mockito.api.stubbing.ArgumentMethodSelector;
 import org.mockito.api.stubbing.ArgumentPropertySelector;
 import org.mockito.api.stubbing.ArgumentRelatedAnswer;
 import org.mockito.api.stubbing.ArgumentSpecifier;
-import org.mockito.api.StubbingContext;
 
 public class ArgumentSpecifierImpl implements ArgumentSpecifier, ArgumentActionDefinition
 {
     private var answer:ArgumentRelatedAnswer;
     private var index:int;
     private var action:ArgumentAction;
+
     public function ArgumentSpecifierImpl(answer:ArgumentRelatedAnswer, index:int)
     {
         super();
@@ -66,9 +67,10 @@ public class ArgumentSpecifierImpl implements ArgumentSpecifier, ArgumentActionD
         try
         {
             action.take(stubbingContext.args[index]);
-        } catch (e:Error)
+        }
+        catch (e:Error)
         {
-            throw new ArgumentActionFailed("While evaluating argument " + index + " failed to " + action.describe() + " : " + e.message);
+            throw new ArgumentActionFailed("While evaluating argument " + index + " failed to " + action.describe() + " : ", e);
         }
     }
 }

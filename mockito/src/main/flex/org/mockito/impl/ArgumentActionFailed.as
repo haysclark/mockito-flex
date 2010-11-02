@@ -21,9 +21,24 @@ package org.mockito.impl
 {
 public class ArgumentActionFailed extends Error
 {
-    public function ArgumentActionFailed(message:String)
+    private var originalError:Error;
+
+    public function ArgumentActionFailed(message:String, originalError:Error = null)
     {
-        super(message)
+        super(message);
+        this.originalError = originalError;
+    }
+
+    override public function getStackTrace():String
+    {
+        if (originalError)
+        {
+            return originalError.getStackTrace();
+        }
+        else
+        {
+            return super.getStackTrace();
+        }
     }
 }
 }
