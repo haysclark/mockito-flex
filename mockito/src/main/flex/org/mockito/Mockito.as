@@ -288,7 +288,7 @@ import org.mockito.impl.matchers.Matchers;
          */
         public function that(methodCallToVerify:*):void
         {
-
+            mockInterceptor.ensureVerifiedMethodCalled();
         }
 
         /**

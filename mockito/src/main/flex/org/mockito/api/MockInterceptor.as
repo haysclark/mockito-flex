@@ -38,7 +38,7 @@ package org.mockito.api
          * @see org.mockito.api.Verifier
          */
         function set verifier(verifier:Verifier):void;
-        
+
         /**
          * Informs interceptor to stub the latest invocation
          * @param answer an answer associated with the latest call
@@ -59,5 +59,10 @@ package org.mockito.api
          * @return an Invocations collection
          */
         function getInvocationsFor(mock:Object):Invocations
+
+        /**
+         * Throws an exception if a method did not get called on a verification
+         */
+        function ensureVerifiedMethodCalled():void;
     }
 }

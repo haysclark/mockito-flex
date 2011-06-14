@@ -43,6 +43,7 @@ package org.mockito.impl
         private var latestInvocation:Invocation;
 
         private var sequenceNumberTracker:SequenceNumberTracker;
+        private var _verifiedMethodCalled:Boolean;
 
         public function MockInterceptorImpl(sequenceNumberTracker:SequenceNumberTracker)
         {
@@ -55,6 +56,7 @@ package org.mockito.impl
             matchers = [];
             if (verifier)
             {
+                _verifiedMethodCalled = true;
                 try
                 {
                     var invocations:Invocations = getInvocationsFor(invocation.target);
@@ -109,6 +111,8 @@ package org.mockito.impl
         public function set verifier(value:Verifier):void
         {
             _verifier = value;
+            if (_verifier)
+                _verifiedMethodCalled = false;
         }
 
         public function get verifier():Verifier
@@ -119,6 +123,15 @@ package org.mockito.impl
         public function addMatcher(matcher:Matcher):void
         {
             this.matchers.push(matcher);
+        }
+
+        public function ensureVerifiedMethodCalled():void
+        {
+            if (!_verifiedMethodCalled)
+            {
+                throw new MissingMethodCallToVerify("Did you forget to call a function/property in .that(...)?");
+            }
+            _verifiedMethodCalled = false;
         }
     }
 }
