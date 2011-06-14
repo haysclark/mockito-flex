@@ -4,6 +4,8 @@ import org.flexunit.asserts.fail;
 import org.flexunit.rules.IMethodRule;
 import org.mockito.impl.ActualNumberOfInvocationsIsDifferent;
 import org.mockito.impl.InvocationsNotInOrder;
+import org.mockito.impl.MissingMethodCallToStub;
+import org.mockito.impl.MissingMethodCallToVerify;
 import org.mockito.impl.NeverWantedButInvoked;
 import org.mockito.impl.WantedButNotInvoked;
 import org.mockito.integrations.*;
@@ -394,6 +396,49 @@ public class TestVerification
             fail();
         }
         catch (e:InvocationsNotInOrder)
+        {
+            // then
+        }
+    }
+
+    [Test]
+    public function testWillVerifyProperties():void
+    {
+        // given
+        var testClass:MockieClass = MockieClass(mock(MockieClass));
+        // when
+        testClass.bindableProperty = "someValue";
+        // then
+        verify().that(testClass.bindableProperty = "someValue");
+    }
+
+    [Test]
+    public function testWillThrowIfNoMethodCallInThat():void
+    {
+        // given
+        var testClass:MockieClass = MockieClass(mock(MockieClass));
+        // when
+        try
+        {
+            verify().that("");
+        }
+        catch (e:MissingMethodCallToVerify)
+        {
+            // then
+        }
+    }
+
+    [Test]
+    public function testWillThrowAFieldCalledFromThat():void
+    {
+        // given
+        var testClass:MockieClass = MockieClass(mock(MockieClass));
+        // when
+        try
+        {
+            verify().that(testClass.storedParameter = "someValue");
+        }
+        catch (e:MissingMethodCallToVerify)
         {
             // then
         }

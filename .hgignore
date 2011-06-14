@@ -2,3 +2,11 @@ glob:mockito/target/
 glob:mockito_tests/target
 glob:out
 glob:bin
+syntax: glob
+.idea/
+*.iws
+*.ipr
+pom.xml
+*_config.xml
+.settings/
+*.iml
