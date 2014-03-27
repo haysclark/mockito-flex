@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mockito</groupId>
     <artifactId>mockito-flex-parent</artifactId>
-    <version>1.4M6</version>
+    <version>1.4M7-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Parent POM for Mockito</name>
     <url>http://maven.apache.org</url>
