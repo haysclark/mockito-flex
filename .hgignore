@@ -3,10 +3,11 @@ glob:mockito-sdk3/target
 glob:out
 glob:bin
 syntax: glob
-.idea/
+glob:.idea/
 *.iws
 *.ipr
 pom.xml
 *_config.xml
 .settings/
 *.iml
+
