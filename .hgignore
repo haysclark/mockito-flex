@@ -1,5 +1,5 @@
 glob:mockito/target/
-glob:mockito_tests/target
+glob:mockito-sdk3/target
 glob:out
 glob:bin
 syntax: glob
