@@ -111,4 +111,17 @@
             <scope>theme</scope>
         </dependency>
     </dependencies>
+
+    <scm>
+        <connection>scm:hg:file:///${basedir}</connection>
+        <developerConnection>scm:hg:file:///${basedir}</developerConnection>
+    </scm>
+    <distributionManagement>
+        <repository>
+            <id>loomis-releases</id>
+            <name>loomis-releases</name>
+            <url>${loomis.releases.url}</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
 </project>
