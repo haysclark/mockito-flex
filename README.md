@@ -198,3 +198,7 @@ This time flex mockito flavour is served to you by Kris Karczmarczyk and Szczepa
 ### How much is it?
 
 [License](https://bitbucket.org/loomis/mockito-flex/wiki/License)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/haysclark/mockito-flex/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
